@@ -18,7 +18,8 @@ class Door extends MovableObject {
     this.y = y;
     this.width = 300;
     this.height = 460;
-    this.offset = { top: 0, bottom: 250, left: 200, right: 200 };
+    this.offset = { top: 50, bottom: 100, left: 120, right: 120 };
+    this.img = this.imageCache['door_0'];
     this.animate();
   }
 
@@ -26,18 +27,18 @@ class Door extends MovableObject {
    * Loads images into the image cache.
    * @param {string[]} images - The array of image sources.
    */
-  loadImages(images) {
+  /*   loadImages(images) {
     images.forEach((src) => {
       const img = new Image();
       img.src = src;
       this.imageCache[src] = img;
     });
-  }
+  } */
 
   /**
    * Animates the door by cycling through images.
    */
-  animate() {
+  /*   animate() {
     let currentImageIndex = 0;
     setInterval(() => {
       // this.img = this.imageCache[LOADED_IMAGES.game_items.door[currentImageIndex]];
@@ -45,23 +46,43 @@ class Door extends MovableObject {
       currentImageIndex =
         (currentImageIndex + 1) % LOADED_IMAGES.game_items.door.length;
     }, 1000 / 4);
+  } */
+
+  /*     animate() {
+      setInterval(() => {
+        this.currentImageIndex =
+          (this.currentImageIndex + 1) % LOADED_IMAGES.game_items.door.length;
+        this.img = this.imageCache[`door_${this.currentImageIndex}`];
+      }, 1000 / 4);
+    } */
+
+  animate() {
+    this.playAnimation(LOADED_IMAGES.game_items.door);
   }
 
   /**
    * Draws the door on the canvas.
    * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
    */
-/*   draw(ctx) {
+  /*   draw(ctx) {
     super.draw(ctx);
   } */
 
-    draw(ctx) {
-      console.log('[DRAW DOOR] wird aufgerufen bei x =', this.x);
-      ctx.globalAlpha = 1;
-      ctx.fillStyle = 'red';
-      ctx.fillRect(this.x, this.y, this.width, this.height);
-      super.draw(ctx);
-    }
+  draw(ctx) {
+    console.log('[DRAW DOOR] wird aufgerufen bei x =', this.x);
+    super.draw(ctx);
+
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 2;
+
+    const offsetX = this.x + this.offset.left;
+    const offsetY = this.y + this.offset.top;
+    const offsetWidth = this.width - this.offset.left - this.offset.right;
+    const offsetHeight = this.height - this.offset.top - this.offset.bottom;
+
+    ctx.strokeRect(offsetX, offsetY, offsetWidth, offsetHeight);
+  }
 
   /**
    * Checks if the door is colliding with a character.

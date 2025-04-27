@@ -19,12 +19,11 @@ class Drawer {
     this.drawStatusBars();
     this.drawGameObjects();
     this.drawEnemies();
+    this.drawDoor();
     this.drawCharacter();
     this.drawSnakes();
     this.drawTraps();
-    if (this.world.door) {
-      this.world.door.draw(this.world.ctx);
-    }
+    
   }
 
   /**
@@ -91,6 +90,7 @@ class Drawer {
     this.world.ctx.translate(this.world.camera_x, 0);
     if (this.world.character.isVisible) {
       this.world.addToMap(this.world.character);
+      this.world.character.drawFrame();
     }
 
     this.world.ctx.restore();
@@ -101,9 +101,15 @@ class Drawer {
    */
 
   drawSnakes() {
+    console.log('%cSchlangen: ', 'color: red;', this.world.snakes);
+    this.world.addObjectsToMap(this.world.snakes);
+  }
+
+
+  drawDoor() {
     this.world.ctx.save();
     this.world.ctx.translate(this.world.camera_x, 0);
-    this.world.addObjectsToMap(this.world.snakes);
+    this.world.addToMap(this.world.door);
     this.world.ctx.restore();
   }
 

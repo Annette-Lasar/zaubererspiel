@@ -41,12 +41,13 @@ class Character extends MovableObject {
   initCharacter() {
     this.applyGravity();
     this.energy = 100;
-    // this.x = 12000;
+    this.x = 4000;
     this.poisonStatusBar.setPercentage(0);
     this.healthBar = new StatusBar();
     this.world.camera_x = -this.x - 190;
     this.canMoveLeftFlag = true;
     this.img = this.imageCache['idle_0'];
+    this.drawFrame();
     this.animate();
   }
 
@@ -393,5 +394,19 @@ class Character extends MovableObject {
    */
   saveLastPosition() {
     this.lastPosition = { x: this.x, y: this.y };
+  }
+
+  drawFrame() {
+    super.draw(ctx);
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = 'blue';
+    ctx.lineWidth = 2;
+
+    const offsetX = this.x + this.offset.left;
+    const offsetY = this.y + this.offset.top;
+    const offsetWidth = this.width - this.offset.left - this.offset.right;
+    const offsetHeight = this.height - this.offset.top - this.offset.bottom;
+
+    ctx.strokeRect(offsetX, offsetY, offsetWidth, offsetHeight);
   }
 }

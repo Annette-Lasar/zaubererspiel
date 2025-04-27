@@ -122,7 +122,6 @@ h2 {
   max-width: 800px;
   max-height: 500px;
   background-color: black;
-  border: red 2px solid;
 }
 
 .start-container {
@@ -253,9 +252,7 @@ h2 {
   padding: 2em;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   color: #e0a635;
-  border: red 2px solid;
 }
 
 .directions-container {
