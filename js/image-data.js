@@ -47,9 +47,6 @@ const IMAGE_PATHS = {
       './assets/img/door/door_4.png',
     ],
   },
-  natural_objects: {
-    cloud: './assets/img/clouds/2.png',
-  },
   character: {
     idle: [
       './assets/img/wizard/idle/idle_000.png',
@@ -86,15 +83,6 @@ const IMAGE_PATHS = {
       './assets/img/wizard/jump/jump_007.png',
       './assets/img/wizard/jump/jump_008.png',
       './assets/img/wizard/jump/jump_009.png',
-    ],
-    attack: [
-      './assets/img/wizard/attack/attack_000.png',
-      './assets/img/wizard/attack/attack_001.png',
-      './assets/img/wizard/attack/attack_002.png',
-      './assets/img/wizard/attack/attack_003.png',
-      './assets/img/wizard/attack/attack_004.png',
-      './assets/img/wizard/attack/attack_005.png',
-      './assets/img/wizard/attack/attack_006.png',
     ],
     die: [
       './assets/img/wizard/die/die_000.png',
@@ -179,27 +167,6 @@ const IMAGE_PATHS = {
       './assets/img/knight/walk/walk3.png',
       './assets/img/knight/walk/walk4.png',
       './assets/img/knight/walk/walk5.png',
-    ],
-    attack: [
-      './assets/img/knight/attack/attack0.png',
-      './assets/img/knight/attack/attack1.png',
-      './assets/img/knight/attack/attack2.png',
-      './assets/img/knight/attack/attack3.png',
-      './assets/img/knight/attack/attack4.png',
-      './assets/img/knight/attack/attack5.png',
-      './assets/img/knight/attack/attack6.png',
-    ],
-    hurt: [
-      './assets/img/knight/hurt/hurt0.png',
-      './assets/img/knight/hurt/hurt1.png',
-    ],
-    dead: [
-      './assets/img/knight/death/death0.png',
-      './assets/img/knight/death/death1.png',
-      './assets/img/knight/death/death2.png',
-      './assets/img/knight/death/death3.png',
-      './assets/img/knight/death/death4.png',
-      './assets/img/knight/death/death5.png',
     ],
   },
   snake: {

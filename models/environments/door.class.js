@@ -13,7 +13,6 @@ class Door extends MovableObject {
     super();
     this.loadImage(LOADED_IMAGES.game_items.door[0]);
     this.addToImageCache('door', LOADED_IMAGES.game_items.door);
-    console.log('[Door] ImageCache:', this.imageCache);
     this.x = x;
     this.y = y;
     this.width = 300;
@@ -69,7 +68,6 @@ class Door extends MovableObject {
   } */
 
   draw(ctx) {
-    console.log('[DRAW DOOR] wird aufgerufen bei x =', this.x);
     super.draw(ctx);
 
     ctx.globalAlpha = 1;

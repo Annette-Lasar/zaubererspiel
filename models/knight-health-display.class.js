@@ -1,12 +1,4 @@
-/**
- * Class representing the health display for a Knight.
- * @extends DrawableObject
- */
-class KnightHealthDisplay extends DrawableObject {
-  /**
-   * Creates an instance of KnightHealthDisplay.
-   * @param {Knight} knight - The knight object.
-   */
+/* class KnightHealthDisplay extends DrawableObject {
   constructor(knight) {
     super();
     this.loadImage(LOADED_IMAGES.game_items.hearts[0]);
@@ -19,19 +11,12 @@ class KnightHealthDisplay extends DrawableObject {
     this.energy = knight.energy;
   }
 
-  /**
-   * Updates the energy of the health display.
-   */
   update() {
     if (this.knight) {
       this.energy = this.knight.energy;
     }
   }
 
-  /**
-   * Draws the health display on the canvas.
-   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
-   */
   draw(ctx) {
     this.update();
     let heartDistance = 40;
@@ -42,13 +27,8 @@ class KnightHealthDisplay extends DrawableObject {
     }
   }
 
-  /**
-   * Updates the position of the health display.
-   * @param {number} knightX - The x position of the knight.
-   * @param {number} knightY - The y position of the knight.
-   */
   updatePosition(knightX, knightY) {
     this.x = knightX + 145;
     this.y = knightY + 30;
   }
-}
+} */

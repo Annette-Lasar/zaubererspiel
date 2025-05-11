@@ -1,182 +1,133 @@
 class World {
-  character;
-  level;
   canvas;
-  ctx;
   keyboard;
+  ctx;
+  level;
+  character;
   camera_x = 0;
-  lastCloudSpawn = 0;
-  cloudSpawnInterval = 3000;
-  // characterStatusBar;
-  characters = [];
-  enemies = [];
-  throwableObjects = [];
-  imageCache = {};
-  IMAGES_YOU_LOST = ['./assets/img/game_ui/login_and_pass/game_over.png'];
-  quitButton;
-  quitButtonImage = './assets/img/game_ui/quit.png';
-  tryAgainButton;
-  tryAgainButtonImage = ['./assets/img/game_ui/try_again.png'];
-  endGame;
-  door = [];
+
+  backgrounds = [];
+  knights = [];
+  poisons = [];
   key;
-  clouds = [];
+  door = [];
   snakes = [];
   traps = [];
-  // environments = [];
-  endbossHealthBar;
+  endboss;
   crystal;
+  // throwableObjects = [];
+
+  characterStatusBar;
+  poisonStatusBar;
+  endbossHealthBar;
+  endGame;
+  quitButton;
+  tryAgainButton;
+  IMAGES_YOU_LOST = LOADED_IMAGES.gameUI.game_over;
+  quitButtonImage = LOADED_IMAGES.gameUI.quit_game;
+  tryAgainButtonImage = LOADED_IMAGES.gameUI.try_again;
 
   constructor(canvas, keyboard, level1) {
+    this.canvas = canvas;
     this.level = level1;
     this.ctx = canvas.getContext('2d');
-    this.canvas = canvas;
     this.keyboard = keyboard;
-    this.ui = new UI(canvas);
+    // this.keyboard.linkButtonsToPressEvents();
+    // NICHT löschen! später wieder einkommentieren, wenn die IDs vorhanden sind.
+
     this.initializeGameObjects();
-    // this.environments = generateEnvironmentsLvl();
-    this.setWorld();
     this.collisionHandler = new CollisionHandler(this);
-    this.drawer = new Drawer(this);
-    // this.initializeDoor(); // LÖSCHEN!!
-    this.endbossHealthBar = new EndbossStatusbar();
-    this.endGame = new EndGame(this);
-    this.crystal = null;
   }
 
-  /**
-   * LÖSCHEN!!
-   */
-/*   initializeDoor() {
-    if (!this.door) {
-      this.door = new Door(4500, 150);
-      this.door.world = this;
-    }
-  } */
-
-  /**
-   * Setzt die Welt des Spiels zurück.
-   */
-  resetGameWorld() {
-    // this.characters = []; // wird nicht genutzt
-    this.enemies = [];
-    this.throwableObjects = [];
-    this.imageCache = {};
-    this.camera_x = 0;
-    this.lastCloudSpawn = 0;
-    this.cloudSpawnInterval = 3000;
-    this.characterStatusBar = null;
-    this.endbossHealthBar = null;
-    this.crystal = null;
-    this.door = [];
-    this.key = null;
-    this.snakes = [];
-    this.traps = [];
-    this.clouds = [];
-    this.poisons = [];
-    // this.environments = [];
-    this.endGame = null;
-  }
-
-  /**
-   * Initialisiert die Spielobjekte.
-   */
   initializeGameObjects() {
-    this.clouds = this.level.clouds || [];
-    this.poisonStatusBar = new PoisonStatusBar();
-    this.characterStatusBar = new StatusBar();
-    this.character = new Character(this, this.poisonStatusBar);
-    this.character.world = this;
-    this.character.y = 150;
-    this.poisonsArray = this.level.poisons || [];
-    this.backgroundObjects = this.level.backgroundObjects || [];
-    this.traps = this.level.traps || [];
-    this.enemies = this.level.enemies || [];
-    this.level.objects = this.level.objects || [];
-    this.snakes = this.level.snakes || [];
-    this.loadImages(this.IMAGES_YOU_LOST);
-    this.loadImages([this.quitButtonImage, this.tryAgainButtonImage]);
-    this.clouds = this.level.clouds || new this.clouds([]);
+    this.character = new Character(this);
+    this.characterStatusBar = new StatusBar('health', 20, 20, 150, 40);
+    this.poisonStatusBar = new StatusBar('poison', 20, 70, 150, 40);
+    this.character.setStatusBars(this.characterStatusBar, this.poisonStatusBar);
+
+    this.backgrounds = this.level.backgrounds || [];
+    this.knights = this.level.knights || [];
+    this.poisons = this.level.poisons || [];
+    this.key = this.level.key;
     this.door = this.level.door || [];
-    console.log('Level-Door:', this.level.door);
-    this.key = Key.initializeKey();
+    this.snakes = this.level.snakes || [];
+    this.traps = this.level.traps || [];
+    this.crystal = this.level.crystal;
+    this.endboss = this.level.endboss;
+    this.endbossHealthBar = new StatusBar('endboss', 500, 20, 200, 40);
+    this.endboss.setStatusBars(this.endbossHealthBar);
+
     this.camera_x = this.character.x - 190;
     this.endGame = new EndGame(this);
   }
 
-  /**
-   * Setzt die Welt des Spiels.
-   */
-  setWorld() {
-    this.character.world = this;
-    this.enemies.forEach((enemy) => {
-      if (enemy instanceof Enemy) {
-        enemy.setWorld(this);
-      }
-    });
-    if (this.door) {
-      this.door.world = this;
-    }
-    if (this.key) {
-      this.key.world = this;
-    }
-    this.traps.forEach((trap) => {
-      trap.world = this;
-    });
+  resetGameWorld() {
+    this.camera_x = 0;
+    this.characterStatusBar = null;
+    this.endbossHealthBar = null;
+    this.poisonStatusBar = null; 
 
-    this.camera_x = -this.character.x - 190;
+    this.knights = [];
+    this.poisons = [];
+    this.key = null;
+    this.door = [];
+    this.snakes = [];
+    this.traps = [];
+    this.crystal = null;
+    this.endboss = null; 
+
+    this.throwableObjects = [];
+    this.endGame = null;
   }
 
-  /**
-   * Lädt die angegebenen Bilder.
-   * @param {string[]} images - Die zu ladenden Bilder.
-   */
-  loadImages(images) {
-    images.forEach((path) => {
-      const img = new Image();
-      img.src = path;
-      this.imageCache[path] = img;
-    });
-  }
-
-  /**
-   * Aktualisiert den Zustand der Welt.
-   */
   update() {
     if (this.levelCompleted || this.character.energy <= 0) return;
 
-    if (this.clouds) {
-      this.clouds.updateClouds();
-    }
-
-    if (this.collisionHandler) {
+    /*     if (this.collisionHandler) {
       this.collisionHandler.checkCollisions();
-    }
+    } */
     if (this.character.isVisible) {
       this.character.update();
       this.character.playAnimation(this.character.IMAGES_IDLE);
     }
-    this.updatePoison();
+    // this.updatePoison();
     if (this.character.isMoving() && musicIsOn) {
       playWalkingSound();
     }
-    this.updateEnemies();
-    if (this.level.endboss) {
-      this.endbossHealthBar.setPercentage(this.level.endboss.energy);
-    }
+    // this.updateEnemies();
+    // if (this.level.endboss) {
+    //   this.endbossHealthBar.setPercentage(this.level.endboss.energy);
+    // }
     this.updateCrystal();
   }
 
-  /**
-   * Zeichnet die Welt.
-   */
-  draw() {
-    this.drawer.draw();
-  }
 
-  /**
-   * Aktualisiert die Feinde in der Welt.
-   */
+draw() {
+  this.clearCanvas();
+  this.ctx.save();
+  this.ctx.translate(this.camera_x, 0);
+
+  this.addObjectsToMap(this.backgrounds);
+  this.addObjectsToMap(this.traps);
+  this.addObjectsToMap(this.snakes);
+  this.addObjectsToMap(this.knights);
+  this.addToMap(this.key);
+  this.addToMap(this.door);
+  this.addToMap(this.crystal);
+  this.addToMap(this.endboss);
+  this.addToMap(this.character);
+
+  this.ctx.restore();
+
+  this.addToMap(this.character.healthBar);
+  this.addToMap(this.character.poisonBar);
+  this.addToMap(this.endbossHealthBar);
+
+  requestAnimationFrame(() => this.draw());
+}
+
+
+
   updateEnemies() {
     this.enemies.forEach((enemy) => {
       if (enemy instanceof Endboss || enemy instanceof Snake) {
@@ -223,30 +174,10 @@ class World {
     this.enemies.push(enemy);
   }
 
-  /**
-   * Löscht das Canvas.
-   */
+
   clearCanvas() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
-
-  /**
-   * Fügt Objekte zum Canvas hinzu.
-   * @param {MovableObject[]} objects - Die hinzuzufügenden Objekte.
-   */
-  /*   addObjectsToMap(objects) {
-    if (objects && Array.isArray(objects)) {
-      objects.forEach((object) => {
-        this.addToMap(object);
-      });
-    }
-    if (
-      this.backgroundObjects.length > 0 &&
-      this.camera_x >= this.backgroundObjects[0].width
-    ) {
-      this.camera_x = 0;
-    }
-  } */
 
   addObjectsToMap(objects) {
     if (!Array.isArray(objects)) {
@@ -262,28 +193,12 @@ class World {
     });
 
     if (
-      this.backgroundObjects.length > 0 &&
-      this.camera_x >= this.backgroundObjects[0].width
+      this.backgrounds.length > 0 &&
+      this.camera_x >= this.backgrounds[0].width
     ) {
       this.camera_x = 0;
     }
   }
-
-  /**
-   * Fügt ein Objekt zur Karte hinzu.
-   * @param {MovableObject} mo - Das hinzuzufügende Objekt.
-   */
-  /*   addToMap(mo) {
-    if (mo && mo.otherDirection) {
-      this.flipImage(mo);
-    }
-    if (mo && mo.isActive !== false) {
-      mo.draw(this.ctx);
-    }
-    if (mo && mo.otherDirection) {
-      this.flipImageBack(mo);
-    }
-  } */
 
   addToMap(mo) {
     if (!mo) {
@@ -308,10 +223,6 @@ class World {
     if (mo.otherDirection) this.flipImageBack(mo);
   }
 
-  /**
-   * Spiegelt das Bild eines Objekts.
-   * @param {MovableObject} mo - Das zu spiegelnde Objekt.
-   */
   flipImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);
@@ -319,10 +230,6 @@ class World {
     mo.x = mo.x * -1;
   }
 
-  /**
-   * Setzt das Bild eines Objekts zurück.
-   * @param {MovableObject} mo - Das zurückzusetzende Objekt.
-   */
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();

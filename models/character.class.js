@@ -1,54 +1,54 @@
 let isAfterDoor = false;
 let hasPassedDoor = false;
-/**
- * Class representing the character.
- * @extends MovableObject
- */
+
 class Character extends MovableObject {
+  world;
   height = 290;
   width = 520;
   speed = 4;
   invulnerable = false;
+  healthBar;
+  poisonBar;
   poisonCollected = 0;
   deadAnimationPlayed = false;
   hasKey = false;
   isVisible = true;
-  attackDamage = 10;
+  // attackDamage = 10;
   animationIntervals = [];
-  offset = { top: 50, bottom: 10, left: 160, right: 200 };
+  offset = { top: 60, bottom: 10, left: 215, right: 200 };
 
-  /**
-   * Creates an instance of Character.
-   */
-  constructor(world, poisonStatusBar) {
+  constructor(world) {
     super();
+    this.world = world;
     this.loadImage(LOADED_IMAGES.character.idle[0]);
     this.addToImageCache('idle', LOADED_IMAGES.character.idle);
     this.addToImageCache('walk', LOADED_IMAGES.character.walk);
     this.addToImageCache('jump', LOADED_IMAGES.character.jump);
-    this.addToImageCache('attack', LOADED_IMAGES.character.attack);
     this.addToImageCache('die', LOADED_IMAGES.character.die);
     this.addToImageCache('hurt', LOADED_IMAGES.character.hurt);
-    this.world = world;
-    this.poisonStatusBar = poisonStatusBar || new PoisonStatusBar();
     this.initCharacter();
     this.canMoveLeftFlag = true;
   }
 
-  /**
-   * Initializes the character.
-   */
+/*   setStatusBars(healthBar, poisonBar) {
+    this.healthBar = healthBar;
+    this.poisonBar = poisonBar;
+  } */
+
+
   initCharacter() {
     this.applyGravity();
     this.energy = 100;
-    this.x = 4000;
-    this.poisonStatusBar.setPercentage(0);
-    this.healthBar = new StatusBar();
+    this.x = 300;
+    this.y = 150;
+    // this.healthBar.setPercentage(0)
+    // this.poisonBar.setPercentage(0);
     this.world.camera_x = -this.x - 190;
     this.canMoveLeftFlag = true;
     this.img = this.imageCache['idle_0'];
     this.drawFrame();
     this.animate();
+    this.handleMovement();
   }
 
   /**
@@ -60,7 +60,7 @@ class Character extends MovableObject {
       this.die();
     }
     this.handleMovement();
-    this.handleActions();
+    // this.handleActions();
     this.updateCamera();
   }
 
@@ -77,8 +77,8 @@ class Character extends MovableObject {
       this.otherDirection = false;
     }
     if (isMovingLeft) {
-      this.moveLeft();
       this.otherDirection = true;
+      this.moveLeft();
     }
     if (isMovingRight || isMovingLeft) {
       playWalkingSound();
@@ -90,10 +90,8 @@ class Character extends MovableObject {
     }
   }
 
-  /**
-   * Handles the character's actions.
-   */
-  handleActions() {
+
+/*   handleActions() {
     if (this.world.keyboard.ATTACK && !this.isAttacking) {
       this.isAttacking = true;
       this.currentAttackFrame = 0;
@@ -103,12 +101,9 @@ class Character extends MovableObject {
       });
       this.attackEnemies();
     }
-  }
-  /**
-   * Plays the attack animation.
-   * @param {Function} callback - Optional callback function to execute after the animation ends.
-   */
-  playAttackAnimation(callback) {
+  } */
+
+/*   playAttackAnimation(callback) {
     let attackIndex = 0;
     playAttackSound();
     const attackInterval = setInterval(() => {
@@ -120,12 +115,10 @@ class Character extends MovableObject {
         if (callback) callback();
       }
     }, 150);
-  }
+  } */
 
-  /**
-   * Attacks enemies within range.
-   */
-  attackEnemies() {
+
+/*   attackEnemies() {
     this.world.enemies.forEach((enemy) => {
       if (
         enemy instanceof Knight ||
@@ -146,7 +139,7 @@ class Character extends MovableObject {
         }
       }
     });
-  }
+  } */
 
   /**
    * Makes the character jump.
@@ -192,7 +185,8 @@ class Character extends MovableObject {
       this.deadAnimationPlayed = true;
       this.isVisible = true;
       this.playDeathAnimation(() => {
-        this.isVisible = false;
+        // this.isVisible = false;
+        this.freezeAtDeathPose();
         this.world.endGame.showYouLostScreen();
       });
     }
@@ -201,17 +195,45 @@ class Character extends MovableObject {
   /**
    * Plays the death animation.
    */
-  playDeathAnimation(callback) {
+  /*   playDeathAnimation(callback) {
     let deathIndex = 0;
     const deathInterval = setInterval(() => {
-      if (deathIndex < LOADED_IMAGES.character.dead.length) {
-        this.img = this.imageCache[LOADED_IMAGES.character.dead[deathIndex]];
+      if (deathIndex < LOADED_IMAGES.character.die.length) {
+        this.img = this.imageCache[LOADED_IMAGES.character.die[deathIndex]];
         deathIndex++;
       } else {
         clearInterval(deathInterval);
         if (callback) callback();
       }
     }, 150);
+  } */
+
+  playDeathAnimation(callback) {
+    let deathIndex = 0;
+    const deathImages = LOADED_IMAGES.character.die;
+
+    if (!deathImages || deathImages.length === 0) {
+      if (callback) callback();
+      return;
+    }
+
+    const deathInverval = setInterval(() => {
+      if (deathIndex < deathImages.length) {
+        this.img = this.imageCache[deathImages[deathIndex]];
+        deathIndex++;
+      } else {
+        clearInterval(deathInverval);
+        if (callback) callback();
+      }
+    }, 150);
+  }
+
+  freezeAtDeathPose() {
+    const deathImages = LOADED_IMAGES.character.die;
+    if (deathImages && deathImages.length > 0) {
+      const lastDeathFrameKey = deathImages[deathImages.length - 1];
+      this.img = this.imageCache[lastDeathFrameKey];
+    }
   }
 
   /**
@@ -224,8 +246,6 @@ class Character extends MovableObject {
         this.die();
       } else if (this.isHurt() && this.energy >= 1) {
         this.playAnimation(LOADED_IMAGES.character.hurt);
-      } else if (this.isAttacking) {
-        this.playAnimation(LOADED_IMAGES.character.attack);
       } else if (this.isAboveGround()) {
         this.playAnimation(LOADED_IMAGES.character.jump);
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -257,7 +277,7 @@ class Character extends MovableObject {
       isVisible: true,
       energy: 100,
       deadAnimationPlayed: false,
-      isAttacking: false,
+      // isAttacking: false,
       invulnerable: false,
       currentImage: 0,
       speedY: 0,
@@ -296,7 +316,6 @@ class Character extends MovableObject {
         isAfterDoor = true;
         hasPassedDoor = true;
         this.world.snakes = this.world.level.snakes || [];
-        console.log('🐍 Snakes nach Türdurchgang:', this.world.snakes);
         setTimeout(() => {
           isAfterDoor = false;
         }, 2000);
@@ -397,7 +416,7 @@ class Character extends MovableObject {
   }
 
   drawFrame() {
-    super.draw(ctx);
+    // super.draw(ctx);
     ctx.globalAlpha = 1;
     ctx.strokeStyle = 'blue';
     ctx.lineWidth = 2;

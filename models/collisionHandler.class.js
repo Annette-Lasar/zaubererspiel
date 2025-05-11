@@ -14,7 +14,7 @@ class CollisionHandler {
   /**
    * Checks all collisions in the game.
    */
-  checkCollisions() {
+/*   checkCollisions() {
     this.checkCollisionWithPoisons();
     this.checkCollisionsWithEnemies();
     this.checkCollisionWithEndboss();
@@ -23,7 +23,7 @@ class CollisionHandler {
     this.checkTraps();
     this.checkThrowableObject();
     this.checkCrystalCollision();
-  }
+  } */
 
   /**
    * Checks if two objects are colliding.

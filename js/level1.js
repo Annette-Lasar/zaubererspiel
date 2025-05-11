@@ -10,79 +10,18 @@
  */
 function createLevel1() {
   return new Level(
-    generateEnemiesLvl(),
-    generateCloudsLvl(),
-    generateDoorLvl(),
     generateBackgroundsLvl(),
+    generateKnightsLvl(),
     generatePoisonObjectsLvl(),
-    generateTrapsLvl()
+    generateKeyLvl(),
+    generateDoorLvl(),
+    generateSnakesLvl(),
+    generateTrapsLvl(),
+    generateCrystalLvl(),
+    generateEndboss()
   );
 }
 
-/**
- * Generates the enemies for the level.
- * @returns {Array} An array of enemies.
- */
-function generateEnemiesLvl() {
-  return [
-    new Knight(0, 900, 100, 1),
-    new Knight(2000, 1500, 100, 2),
-    new Knight(4000, 2100, 100, 3),
-    new Knight(8000, 2700, 100, 4),
-    new Knight(10000, 3300, 100, 5),
-    new Knight(12000, 3900, 100, 6),
-    new Key(LOADED_IMAGES.game_items.key, 4400, 130),
-    new Snake(7000, 200, 7),
-    new Snake(8300, 200, 8),
-    new Snake(9500, 200, 9),
-    new Snake(10700, 200, 10),
-    new Snake(11700, 200, 11),
-    new Endboss(11800, 200, 12),
-    new Crystal(LOADED_IMAGES.game_items.crystal, 13660, 380),
-  ];
-}
-
-
-
-/**
- * Generates the environment objects for the level.
- * @returns {Array} An array of environment objects.
- */
-function generateCloudsLvl() {
-  return new Clouds([
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-    new Cloud(),
-  ]);
-}
-
-
-
-/**
- * Generates the background objects for the level.
- * @returns {Array} An array of background objects.
- */
 function generateBackgroundsLvl() {
   return [
     new BackgroundObject(LOADED_IMAGES.backgrounds.green_wood.wood7, -719),
@@ -235,8 +174,15 @@ function generateBackgroundsLvl() {
   ];
 }
 
-function generateDoorLvl() {
-  return new Door(4500, 80);
+function generateKnightsLvl() {
+  return [
+    new Knight(0, 900, 1),
+    new Knight(2000, 1500, 2),
+    new Knight(4000, 2100, 3),
+    new Knight(8000, 2700, 4),
+    new Knight(10000, 3300, 5),
+    new Knight(12000, 3900, 6),
+  ];
 }
 
 /**
@@ -254,6 +200,24 @@ function generatePoisonObjectsLvl() {
   ];
 }
 
+function generateKeyLvl() {
+  return new Key(4400, 130);
+}
+
+function generateDoorLvl() {
+  return new Door(4500, 80);
+}
+
+function generateSnakesLvl() {
+  return [
+    new Snake(7000, 200, 7),
+    new Snake(8300, 200, 8),
+    new Snake(9500, 200, 9),
+    new Snake(10700, 200, 10),
+    new Snake(11700, 200, 11),
+  ];
+}
+
 /**
  * Generates the traps for the level.
  * @returns {Array} An array of traps.
@@ -266,4 +230,12 @@ function generateTrapsLvl() {
     new Trap(11000, 330),
     new Trap(11700, 330),
   ];
+}
+
+function generateCrystalLvl() {
+  return new Crystal(600, 380);
+}
+
+function generateEndboss() {
+  return new Endboss(11800, 200, 12);
 }

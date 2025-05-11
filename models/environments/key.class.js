@@ -13,8 +13,8 @@ class Key extends DrawableObject {
     this.loadImage(LOADED_IMAGES.game_items.key);
     this.x = x;
     this.y = y;
-    this.width = 60;
-    this.height = 60;
+    this.width = 50;
+    this.height = 80;
     this.isActive = true;
   }
 
@@ -22,11 +22,11 @@ class Key extends DrawableObject {
    * Draws the key object on the canvas.
    * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
    */
-  draw(ctx) {
+/*   draw(ctx) {
     if (this.isActive) {
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
-  }
+  } */
 
   /**
    * Deactivates the key object.
@@ -39,7 +39,7 @@ class Key extends DrawableObject {
    * Initializes a key object.
    * @returns {Key[]} An array containing a new key object.
    */
-  static initializeKey() {
+/*   static initializeKey() {
     return [new Key(300, 400)];
-  }
+  } */
 }

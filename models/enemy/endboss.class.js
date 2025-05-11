@@ -26,12 +26,10 @@ class Endboss extends Enemy {
     this.speed = 0.5;
     this.deadSound = new Audio('./assets/audio/troll_dead.mp3');
     this.offset = { top: 50, bottom: 20, left: 20, right: 20 };
-    this.statusBarEndboss = new EndbossStatusbar();
     this.otherDirection = true;
     this.energy = 100;
     this.patrolLeftLimit = 13150;
     this.patrolRightLimit = 13500;
-    this.statusBarEndboss.setPercentage(this.energy);
     this.initialX = this.x;
     this.initialY = this.y;
 
@@ -54,12 +52,12 @@ class Endboss extends Enemy {
     if (this.dead || this.isAttacking) return;
     this.isAttacking = true;
     this.playAnimation(LOADED_IMAGES.troll.attack, 100);
-    setTimeout(() => {
+/*     setTimeout(() => {
       if (this.isInAttackRange(character)) {
         character.takeDamage(this.attackDamage);
         this.takeDamage(character.attackDamage);
       }
-    }, 300);
+    }, 300); */
     setTimeout(() => {
       this.isAttacking = false;
     }, 1000);
@@ -73,7 +71,6 @@ class Endboss extends Enemy {
     if (this.dead) return;
     this.energy -= damage;
     this.energy = Math.max(0, this.energy);
-    this.statusBarEndboss.setPercentage(this.energy);
     if (this.energy > 0) {
       this.playAnimation(LOADED_IMAGES.troll.hurt);
     } else {
@@ -147,9 +144,6 @@ class Endboss extends Enemy {
     ctx.save();
     this.drawImage(ctx);
     ctx.restore();
-    this.updateStatusBarPosition();
-    this.statusBarEndboss.setPercentage(this.energy);
-    this.statusBarEndboss.draw(ctx);
   }
 
   /**
@@ -172,18 +166,6 @@ class Endboss extends Enemy {
     }
   }
 
-  /**
-   * Updates the position of the Endboss's status bar.
-   */
-  updateStatusBarPosition() {
-    this.statusBarEndboss.x =
-      this.x + this.width / 2 - this.statusBarEndboss.width / 2;
-    this.statusBarEndboss.y = this.y - 40;
-  }
-
-  /**
-   * Animates the Endboss.
-   */
   animate() {
     let i = 0;
     setInterval(() => {

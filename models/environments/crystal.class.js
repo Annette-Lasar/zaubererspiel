@@ -2,7 +2,7 @@
  * Class representing a Crystal.
  * @extends DrawableObject
  */
-class Crystal extends DrawableObject {
+class Crystal extends MovableObject {
   /**
    * Creates an instance of Crystal.
    * @param {number} x - The x position of the crystal.
@@ -10,7 +10,9 @@ class Crystal extends DrawableObject {
    */
   constructor(x, y) {
     super();
-    this.loadImage(LOADED_IMAGES.game_items.crystal);
+    // this.loadImage(LOADED_IMAGES.game_items.crystal);
+    this.img = LOADED_IMAGES.game_items.crystal;
+    // this.x = 13660;
     this.x = x;
     this.y = y;
     this.width = 80;

@@ -9,6 +9,7 @@ class MovableObject extends DrawableObject {
   energy = 100;
   lastHit = 0;
   isVisible = true;
+  otherDirection = false;
   animationIntervals = [];
   offset = { top: 0, bottom: 0, left: 0, right: 0 };
 
@@ -178,24 +179,12 @@ class MovableObject extends DrawableObject {
     if (this.gravityInterval) clearInterval(this.gravityInterval);
   }
 
-/* ÜBERFLÜSSIG. Diese Methode war doppelt. Es gibt sie schon in 
-der Klasse DrawableObject. Da diese Klasse von DrawableObject erbt,
-darf hier keine playAnimation vorhanden sein, denn sonst überschreibt
-sie die der DrawableObject-Klasse. */
-/*   playAnimation(images) {
-    if (!images || !Array.isArray(images) || images.length === 0) return;
-    let i = this.currentImage % images.length;
-    this.img = this.imageCache[images[i]];
-    this.currentImage++;
-    this.lastFrame = Date.now();
-  } */
-
   /**
    * Plays the death animation.
    */
   playDeathAnimation() {
     this.stopAllAnimations();
-    let deathImages = LOADED_IMAGES.character.dead;
+    let deathImages = LOADED_IMAGES.character.die;
     if (!deathImages || deathImages.length === 0) {
       return;
     }
