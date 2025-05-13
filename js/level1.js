@@ -12,7 +12,7 @@ function createLevel1() {
   return new Level(
     generateBackgroundsLvl(),
     generateKnightsLvl(),
-    generatePoisonObjectsLvl(),
+    generatePoisonsLvl(),
     generateKeyLvl(),
     generateDoorLvl(),
     generateSnakesLvl(),
@@ -189,7 +189,7 @@ function generateKnightsLvl() {
  * Generates the poison objects for the level.
  * @returns {Array} An array of poison objects.
  */
-function generatePoisonObjectsLvl() {
+function generatePoisonsLvl() {
   return [
     new PoisonObject(800, 400),
     new PoisonObject(1600, 300),
@@ -201,7 +201,7 @@ function generatePoisonObjectsLvl() {
 }
 
 function generateKeyLvl() {
-  return new Key(4400, 130);
+  return new Key(4500, 130);
 }
 
 function generateDoorLvl() {
@@ -233,7 +233,7 @@ function generateTrapsLvl() {
 }
 
 function generateCrystalLvl() {
-  return new Crystal(600, 380);
+  return new Crystal(300, 380);
 }
 
 function generateEndboss() {

@@ -1,45 +1,21 @@
-/**
- * Class representing a key object.
- * @extends DrawableObject
- */
-class Key extends DrawableObject {
-  /**
-   * Creates an instance of Key.
-   * @param {number} x - The x position of the key.
-   * @param {number} y - The y position of the key.
-   */
+class Key extends MovableObject {
   constructor(x, y) {
     super();
-    this.loadImage(LOADED_IMAGES.game_items.key);
+    this.img = LOADED_IMAGES.game_items.key;
     this.x = x;
     this.y = y;
-    this.width = 50;
+    this.startY = y;
+    this.width = 70;
     this.height = 80;
-    this.isActive = true;
+    this.floatAmplitude = 20;
+    this.floatSpeed = 2;
+    this.floatOffset = 0;
   }
 
-  /**
-   * Draws the key object on the canvas.
-   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
-   */
-/*   draw(ctx) {
-    if (this.isActive) {
-      ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-  } */
-
-  /**
-   * Deactivates the key object.
-   */
-  deactivate() {
-    this.isActive = false;
+  handleFloating() {
+    this.floatOffset += 0.05;
+    this.y =
+      this.startY +
+      Math.sin(this.floatOffset * this.floatSpeed) * this.floatAmplitude;
   }
-
-  /**
-   * Initializes a key object.
-   * @returns {Key[]} An array containing a new key object.
-   */
-/*   static initializeKey() {
-    return [new Key(300, 400)];
-  } */
 }

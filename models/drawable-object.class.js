@@ -5,8 +5,6 @@ class DrawableObject {
     this.width = width;
     this.height = height;
     this.img;
-    this.imageCache = {};
-    this.currentImage = 0;
     this.offset = { top: 0, bottom: 0, left: 0, right: 0 };
   }
 
@@ -24,26 +22,6 @@ class DrawableObject {
         imageObject
       );
     }
-  }
-
-  addToImageCache(prefix, imagesArray) {
-    if (!Array.isArray(imagesArray)) return;
-    imagesArray.forEach((img, index) => {
-      if (img instanceof HTMLImageElement) {
-        this.imageCache[`${prefix}_${index}`] = img;
-      } else {
-        console.warn(
-          `Unloaded image in array ${prefix} at index ${index}:`,
-          img
-        );
-      }
-    });
-  }
-
-  playAnimation(images) {
-    if (!images || !images.length) return;
-    this.img = images[this.currentImage % images.length];
-    this.currentImage++;
   }
 
   draw(ctx) {
