@@ -44,7 +44,7 @@ class EndGame {
   /**
    * Setzt das Spiel fort, indem der gespeicherte Zustand wiederhergestellt wird.
    */
-  resumeGame() {
+/*   resumeGame() {
     const lastPosition = this.world.character.lastPosition || {
       x: 130,
       y: 150,
@@ -54,7 +54,7 @@ class EndGame {
     this.hideGameOverScreen();
     this.world.character.applyGravity();
     gameLoop();
-  }
+  } */
 
   /**
    * Zeigt den "You Lost"-Bildschirm an.

@@ -1,11 +1,10 @@
-class Endboss extends Enemy {
+class Endboss extends MovableObject {
   offset = { top: 150, bottom: 100, left: 140, right: 150 };
   constructor(id) {
     super(id);
     this.addToImageCache('walk', LOADED_IMAGES.troll.walk);
-    this.addToImageCache('attack', LOADED_IMAGES.troll.attack);
     this.addToImageCache('hurt', LOADED_IMAGES.troll.hurt);
-    this.addToImageCache('dead', LOADED_IMAGES.troll.dead);
+    this.addToImageCache('dead', LOADED_IMAGES.troll.die);
 
     this.img = this.imageCache['walk_0'];
     this.deadAnimationPlayed = false;
@@ -16,7 +15,6 @@ class Endboss extends Enemy {
     this.speed = 0.5;
     this.deadSound = new Audio('./assets/audio/troll_dead.mp3');
     
-    // this.otherDirection = true;
     this.energy = 100;
     this.patrolLeftLimit = 13150;
     this.patrolRightLimit = 13500;

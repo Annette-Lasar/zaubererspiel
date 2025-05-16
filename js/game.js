@@ -25,15 +25,15 @@ const gameState = {
     );
   },
 
-  restore() {
+/*   restore() {
     const saved = JSON.parse(localStorage.getItem('gameState'));
     if (!saved) return;
     this.restoreCharacter(saved);
     this.restoreEnemies(saved);
     world.camera_x = saved.levelProgress;
-  },
+  }, */
 
-  restoreCharacter(saved) {
+/*   restoreCharacter(saved) {
     Object.assign(world.character, {
       x: saved.characterX,
       y: saved.characterY,
@@ -43,9 +43,9 @@ const gameState = {
       invincible: true,
     });
     setTimeout(() => (world.character.invincible = false), 3000);
-  },
+  }, */
 
-  restoreEnemies(saved) {
+ /*  restoreEnemies(saved) {
     world.enemies =
       saved.enemies?.map((data) => {
         let enemy = new (window[data.type] || Enemy)();
@@ -53,7 +53,7 @@ const gameState = {
         setTimeout(() => (enemy.canAttack = true), 3000);
         return enemy;
       }) || [];
-  },
+  }, */
 };
 
 function init() {

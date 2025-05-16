@@ -1,16 +1,11 @@
 const IMAGE_PATHS = {
   backgrounds: {
-    green_wood: {
-      wood7: './assets/img/game_backgrounds/4/7.png',
-      wood6: './assets/img/game_backgrounds/4/6.png',
-      wood4: './assets/img/game_backgrounds/4/4.png',
-      wood2: './assets/img/game_backgrounds/4/2.png',
-      wood1: './assets/img/game_backgrounds/4/1.png',
-    },
-    blue_wood: {
-      wood3: './assets/img/game_backgrounds/3/3.png',
-      wood2: './assets/img/game_backgrounds/3/2.png',
-    },
+    wood0: './assets/img/game_backgrounds/wood/000.png',
+    wood1: './assets/img/game_backgrounds/wood/001.png',
+    wood2: './assets/img/game_backgrounds/wood/002.png',
+    wood3: './assets/img/game_backgrounds/wood/003.png',
+    wood4: './assets/img/game_backgrounds/wood/004.png',
+    wood5: './assets/img/game_backgrounds/wood/005.png',
   },
   game_items: {
     candle: './assets/img/game_items/candle.png',
@@ -122,18 +117,6 @@ const IMAGE_PATHS = {
       './assets/img/troll/walk/walk_008.png',
       './assets/img/troll/walk/walk_009.png',
     ],
-    attack: [
-      './assets/img/troll/attack/attack_000.png',
-      './assets/img/troll/attack/attack_001.png',
-      './assets/img/troll/attack/attack_002.png',
-      './assets/img/troll/attack/attack_003.png',
-      './assets/img/troll/attack/attack_004.png',
-      './assets/img/troll/attack/attack_005.png',
-      './assets/img/troll/attack/attack_006.png',
-      './assets/img/troll/attack/attack_007.png',
-      './assets/img/troll/attack/attack_008.png',
-      './assets/img/troll/attack/attack_009.png',
-    ],
     hurt: [
       './assets/img/troll/hurt/hurt_000.png',
       './assets/img/troll/hurt/hurt_001.png',
@@ -146,7 +129,7 @@ const IMAGE_PATHS = {
       './assets/img/troll/hurt/hurt_008.png',
       './assets/img/troll/hurt/hurt_009.png',
     ],
-    dead: [
+    die: [
       './assets/img/troll/die/die_000.png',
       './assets/img/troll/die/die_001.png',
       './assets/img/troll/die/die_002.png',

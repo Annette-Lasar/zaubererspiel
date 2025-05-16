@@ -1,4 +1,4 @@
-class Knight extends Enemy {
+class Knight extends MovableObject {
   constructor(delay, startX, id) {
     super(id);
     this.addToImageCache('walk', LOADED_IMAGES.knight.walk);

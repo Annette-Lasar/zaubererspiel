@@ -1,7 +1,7 @@
 class Character extends MovableObject {
   world;
-  height = 290;
-  width = 520;
+  height = 239;
+  width = 200;
   speed = 4;
   invulnerable = false;
   healthBar;
@@ -32,12 +32,11 @@ class Character extends MovableObject {
     this.energy = 100;
     this.x = 0;
     // this.x = 4000;
-    this.y = 150;
+    this.y = 270;
     this.hasPassedDoor = false;
     this.isAfterDoor = false;
     // this.healthBar.setPercentage(0)
     // this.poisonBar.setPercentage(0);
-    // this.world.camera_x = -this.x - 190;
     this.canMoveLeftFlag = true;
   }
 
@@ -72,6 +71,7 @@ class Character extends MovableObject {
     } else if (this.isHurt()) {
       this.animate(LOADED_IMAGES.character.hurt);
     } else if (this.isAboveGround()) {
+      console.log('Ich werde ausgeführt.');
       this.animate(LOADED_IMAGES.character.jump);
     } else if (this.isMoving()) {
       this.animate(LOADED_IMAGES.character.walk);
@@ -88,9 +88,7 @@ class Character extends MovableObject {
     }
   }
 
-  updateCamera() {
-    this.world.camera_x = -this.x - 190;
-  }
+
 
   canMoveLeft() {
     if (this.hasPassedDoor && this.x < 6471) return false;
