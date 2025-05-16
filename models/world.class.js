@@ -2,6 +2,7 @@ class World {
   canvas;
   keyboard;
   ctx;
+  loopId;
   level;
   character;
   camera_x = 0;
@@ -10,12 +11,11 @@ class World {
   enemies = [];
   knights = [];
   poisons = [];
+  hearts = [];
+  traps = [];
   key;
   door;
-  snakes = [];
-  traps = [];
   endboss;
-  crystal;
   // throwableObjects = [];
 
   characterStatusBar;
@@ -33,6 +33,7 @@ class World {
     this.level = level1;
     this.ctx = canvas.getContext('2d');
     this.keyboard = keyboard;
+    this.loopId = null;
     // this.keyboard.linkButtonsToPressEvents();
     // NICHT löschen! später wieder einkommentieren, wenn die IDs vorhanden sind.
 
@@ -49,14 +50,13 @@ class World {
     this.backgrounds = this.level.backgrounds || [];
     this.knights = this.level.knights || [];
     this.poisons = this.level.poisons || [];
+    this.hearts = this.level.hearts || [];
     this.key = this.level.key;
     this.door = this.level.door;
-    this.snakes = this.level.snakes || [];
     this.traps = this.level.traps || [];
-    this.crystal = this.level.crystal;
-    // this.endboss = this.level.endboss;
-    // this.endbossHealthBar = new StatusBar('endboss', 500, 20, 200, 40);
-    // this.endboss.setStatusBars(this.endbossHealthBar);
+    this.endboss = this.level.endboss;
+    this.endbossHealthBar = new StatusBar('endboss', 500, 20, 200, 40);
+    this.endboss.setStatusBars(this.endbossHealthBar);
 
     /*    this.enemies = [
       ...this.knights,
@@ -65,20 +65,22 @@ class World {
       this.endboss,
     ]; */
 
-    this.camera_x = this.character.x - 190;
-    this.endGame = new EndGame(this);
+    this.camera_x = -this.character.x + 100;
   }
 
   update() {
     this.character.handleMovements();
-    this.camera_x = -this.character.x + 200;
+    this.camera_x = -this.character.x + 100;
     this.character.handleAnimations();
-    this.character.drawFrame();
-    this.poisons.forEach((poison) => poison.handleAnimations());
+    this.poisons.forEach((poison) => {
+      poison.handleAnimations();
+      poison.handleFloating();
+    });
+    this.hearts.forEach((heart) => heart.handleFloating());
     this.knights.forEach((knight) => knight.handleAnimations());
     this.key.handleFloating();
-    this.snakes.forEach((snake) => snake.handleAnimations());
     this.traps.forEach((trap) => trap.handleAnimations());
+    this.endboss.handleAnimations();
   }
 
   draw() {
@@ -87,22 +89,27 @@ class World {
     this.ctx.translate(this.camera_x, 0);
 
     this.addObjectsToMap(this.backgrounds);
-    this.addObjectsToMap(this.traps);
-    this.addObjectsToMap(this.snakes);
     this.addObjectsToMap(this.knights);
     this.addObjectsToMap(this.poisons);
+    this.addObjectsToMap(this.hearts);
+    this.addObjectsToMap(this.traps);
     this.addToMap(this.key);
     this.addToMap(this.door);
-    this.addToMap(this.crystal);
-    // this.addToMap(this.endboss);
+    this.addToMap(this.endboss);
     this.addToMap(this.character);
+
     this.character.drawFrame(this.ctx);
+    this.key.drawFrame(this.ctx);
+    this.poisons.forEach((poison) => poison.drawFrame(this.ctx));
+    this.hearts.forEach((heart) => heart.drawFrame(this.ctx));
+    this.traps.forEach((trap) => trap.drawFrame(this.ctx));
+    this.endboss.drawFrame(this.ctx);
 
     this.ctx.restore();
 
     this.addToMap(this.character.healthBar);
     this.addToMap(this.character.poisonBar);
-    // this.addToMap(this.endbossHealthBar);
+    this.addToMap(this.endbossHealthBar);
   }
 
   updatePoison() {
@@ -111,14 +118,6 @@ class World {
         this.character.collectPoison(poison, index);
       }
     });
-  }
-
-  updateCrystal() {
-    if (this.crystal && this.crystal.isActive) {
-      if (this.collisionHandler.checkCollision(this.character, this.crystal)) {
-        this.crystal.collect();
-      }
-    }
   }
 
   clearCanvas() {
@@ -180,63 +179,4 @@ class World {
     mo.x = mo.x * -1;
     this.ctx.restore();
   }
-
-  resetCamera() {
-    this.camera_x = -this.character.x + 190;
-  }
-
-  /*   resetGameWorld() {
-    this.camera_x = 0;
-    this.characterStatusBar = null;
-    this.endbossHealthBar = null;
-    this.poisonStatusBar = null;
-
-    this.knights = [];
-    this.poisons = [];
-    this.key = null;
-    this.door = [];
-    this.snakes = [];
-    this.traps = [];
-    this.crystal = null;
-    this.endboss = null;
-
-    this.throwableObjects = [];
-    this.endGame = null;
-  } */
-
-  /*   resetEnemies() {
-    this.enemies.forEach((enemy) => {
-      if (enemy.resetPosition) {
-        enemy.resetPosition();
-      }
-    });
-*/
-
-  // restoreEnemies(enemies) {
-  //   this.enemies = enemies.map((data) => {
-  //     const enemy = new (window[data.type] || Enemy)();
-  //     Object.assign(enemy, data);
-  //     return enemy;
-  //   });
-  // }
-
-  // resetObjects() {
-  //   if (!this.objects || !Array.isArray(this.objects)) {
-  //     console.warn('Keine Objekte zum Zurücksetzen vorhanden.'); // Debugging-Log
-  //     return;
-  //   }
-  //   this.objects.forEach((obj) => {
-  //     if (obj.resetPosition) {
-  //       obj.resetPosition();
-  //     }
-  //   });
-  // }
-
-  // restoreObjects(objects) {
-  //   this.objects = objects.map((data) => {
-  //     const obj = new GameObject();
-  //     Object.assign(obj, data);
-  //     return obj;
-  //   });
-  // }
 }

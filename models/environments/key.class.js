@@ -1,10 +1,11 @@
 class Key extends MovableObject {
-  constructor(x, y) {
+  offset = { top: 10, bottom: 10, left: 10, right: 10 };
+  constructor() {
     super();
     this.img = LOADED_IMAGES.game_items.key;
-    this.x = x;
-    this.y = y;
-    this.startY = y;
+    this.x = 200 + Math.floor(Math.random() * 5000);
+    this.y = 130;
+    this.startY = this.y;
     this.width = 70;
     this.height = 80;
     this.floatAmplitude = 20;
@@ -12,10 +13,16 @@ class Key extends MovableObject {
     this.floatOffset = 0;
   }
 
-  handleFloating() {
-    this.floatOffset += 0.05;
-    this.y =
-      this.startY +
-      Math.sin(this.floatOffset * this.floatSpeed) * this.floatAmplitude;
+    drawFrame() {
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = 'orange';
+    ctx.lineWidth = 2;
+
+    const offsetX = this.x + this.offset.left;
+    const offsetY = this.y + this.offset.top;
+    const offsetWidth = this.width - this.offset.left - this.offset.right;
+    const offsetHeight = this.height - this.offset.top - this.offset.bottom;
+
+    ctx.strokeRect(offsetX, offsetY, offsetWidth, offsetHeight);
   }
 }

@@ -1,23 +1,20 @@
-class PoisonObject extends MovableObject {
-  offset = { top: 55, bottom: 50, left: 10, right: 10 };
+class Heart extends MovableObject {
+  offset = { top: 0, bottom: 0, left: 0, right: 0 };
   constructor(x) {
     super();
-    this.addToImageCache('poison', LOADED_IMAGES.game_items.poison);
-    this.img = this.imageCache['poison_0'];
+    this.img = LOADED_IMAGES.game_items.hearts[1];
     this.x = x;
     this.y = Math.floor(Math.random() * 200);
     this.startY = this.y;
-    this.width = 50;
-    this.height = 50;
-  }
-
-  handleAnimations() {
-    this.animate(LOADED_IMAGES.game_items.poison);
+    this.height = 40;
+    this.width = 40;
+    this.floatAmplitude = 15;
+    this.floatSpeed = 1.5;
   }
 
   drawFrame() {
     ctx.globalAlpha = 1;
-    ctx.strokeStyle = 'black';
+    ctx.strokeStyle = 'green';
     ctx.lineWidth = 2;
 
     const offsetX = this.x + this.offset.left;

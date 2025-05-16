@@ -13,11 +13,10 @@ function createLevel1() {
     generateBackgroundsLvl(),
     generateKnightsLvl(),
     generatePoisonsLvl(),
+    generateHeartsLvl(),
     generateKeyLvl(),
     generateDoorLvl(),
-    generateSnakesLvl(),
     generateTrapsLvl(),
-    generateCrystalLvl(),
     generateEndboss()
   );
 }
@@ -157,20 +156,6 @@ function generateBackgroundsLvl() {
     new BackgroundObject(LOADED_IMAGES.game_items.candle, 5800, 50, 10, 30),
     new BackgroundObject(LOADED_IMAGES.game_items.skull, 6000, 50, 10, 30),
     new BackgroundObject(LOADED_IMAGES.backgrounds.green_wood.wood1, 719 * 8),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 6471),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 7190),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 7910),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 8629),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 9348),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 10067),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 10786),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 11505),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 12225),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 12944),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 13000),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 13719),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 14438),
-    new BackgroundObject(LOADED_IMAGES.backgrounds.blue_wood.wood2, 15157),
   ];
 }
 
@@ -191,31 +176,34 @@ function generateKnightsLvl() {
  */
 function generatePoisonsLvl() {
   return [
-    new PoisonObject(800, 400),
-    new PoisonObject(1600, 300),
-    new PoisonObject(2400, 200),
-    new PoisonObject(3200, 400),
-    new PoisonObject(4000, 300),
-    new PoisonObject(6400, 200),
+    new PoisonObject(400),
+    new PoisonObject(800),
+    new PoisonObject(1600),
+    new PoisonObject(3300),
+    new PoisonObject(3700),
+    new PoisonObject(4400),
+  ];
+}
+
+function generateHeartsLvl() {
+  return [
+    new Heart(560),
+    new Heart(1100),
+    new Heart(2000),
+    new Heart(2680),
+    new Heart(3110),
+    new Heart(3550),
+    new Heart(4800),
+    new Heart(5400),
   ];
 }
 
 function generateKeyLvl() {
-  return new Key(4500, 130);
+  return new Key();
 }
 
 function generateDoorLvl() {
-  return new Door(4500, 80);
-}
-
-function generateSnakesLvl() {
-  return [
-    new Snake(7000, 200, 7),
-    new Snake(8300, 200, 8),
-    new Snake(9500, 200, 9),
-    new Snake(10700, 200, 10),
-    new Snake(11700, 200, 11),
-  ];
+  return new Door(5500, 80);
 }
 
 /**
@@ -224,18 +212,14 @@ function generateSnakesLvl() {
  */
 function generateTrapsLvl() {
   return [
-    new Trap(7500, 330),
-    new Trap(8600, 330),
-    new Trap(9900, 330),
-    new Trap(11000, 330),
-    new Trap(11700, 330),
+    new Trap(800),
+    new Trap(1600),
+    new Trap(2600),
+    new Trap(3400),
+    new Trap(4800),
   ];
 }
 
-function generateCrystalLvl() {
-  return new Crystal(300, 380);
-}
-
 function generateEndboss() {
-  return new Endboss(11800, 200, 12);
+  return new Endboss(12);
 }

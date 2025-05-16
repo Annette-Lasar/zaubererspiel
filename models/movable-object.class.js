@@ -12,6 +12,9 @@ class MovableObject extends DrawableObject {
   animationSpeed = 100;
   currentAnimation = null;
   animationIntervals = [];
+  floatAmplitude = 20;
+  floatSpeed = 2;
+  floatOffset = 0;
   offset = { top: 0, bottom: 0, left: 0, right: 0 };
 
   constructor() {
@@ -118,5 +121,12 @@ class MovableObject extends DrawableObject {
     } else {
       console.warn('[animate()] Kein gültiges Bild:', img);
     }
+  }
+
+  handleFloating() {
+    this.floatOffset += 0.05;
+    this.y =
+      this.startY +
+      Math.sin(this.floatOffset * this.floatSpeed) * this.floatAmplitude;
   }
 }
