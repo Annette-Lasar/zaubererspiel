@@ -10,7 +10,7 @@ class Character extends MovableObject {
   tickIcon;
   energy = 100;
   poisonCollected = 0;
-  keyCollected = true;
+  keyCollected = false;
   hasPassedDoor = false;
   deadAnimationPlayed = false;
   hasKey = false;
@@ -45,7 +45,7 @@ class Character extends MovableObject {
 
   drawTickIcon() {
     if (this.keyCollected) {
-      this.world.a
+      this.world.a;
     }
   }
 
@@ -53,23 +53,25 @@ class Character extends MovableObject {
     const isMovingRight =
       this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x + 200;
     const isMovingLeft = this.world.keyboard.LEFT && this.x > -500;
+
     if (isMovingRight) {
       this.otherDirection = false;
       this.moveRight();
     }
+
     if (isMovingLeft) {
       this.otherDirection = true;
       this.moveLeft();
     }
-    if (isMovingRight || isMovingLeft) {
-      this.animate(LOADED_IMAGES.character.walk, 'walk');
-      playWalkingSound();
-    } else {
-      this.animate(LOADED_IMAGES.character.idle, 'idle');
-      stopWalkingSound();
-    }
+
     if (this.world.keyboard.JUMP && !this.isAboveGround()) {
       this.jump();
+    }
+
+    if (isMovingRight || isMovingLeft) {
+      playWalkingSound();
+    } else {
+      stopWalkingSound();
     }
   }
 
@@ -79,11 +81,9 @@ class Character extends MovableObject {
     } else if (this.isHurt()) {
       this.animate(LOADED_IMAGES.character.hurt);
     } else if (this.isAboveGround()) {
-      console.log('Ich werde ausgeführt.');
       this.animate(LOADED_IMAGES.character.jump);
     } else if (this.isMoving()) {
       this.animate(LOADED_IMAGES.character.walk);
-      // console.log('x-wert character: ', this.x);
     } else {
       this.animate(LOADED_IMAGES.character.idle);
     }

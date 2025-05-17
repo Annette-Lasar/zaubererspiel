@@ -1,25 +1,18 @@
 class Knight extends MovableObject {
   offset = { top: 100, bottom: 70, left: 240, right: 100 };
-  constructor(delay, startX, id) {
-    super(id);
+  constructor(x) {
+    super();
     this.addToImageCache('walk', LOADED_IMAGES.knight.walk);
     this.img = this.imageCache['walk_0'];
-    this.x = startX;
-    this.startX = startX;
-    this.speed = 0.01 + Math.random() * 0.05;
-
+    this.x = x;
+    this.y = 250;
+    this.speed = 1.5 + Math.random() * 0.5;
     this.width = 520;
     this.height = 290;
-    this.y = 250;
-    
   }
 
   handleAnimations() {
     this.animate(LOADED_IMAGES.knight.walk);
-  }
-
-  remove() {
-    this.removeEnemy();
   }
 
   drawFrame() {

@@ -8,7 +8,6 @@ class World {
   camera_x = 0;
 
   backgrounds = [];
-  enemies = [];
   knights = [];
   poisons = [];
   hearts = [];
@@ -68,14 +67,7 @@ class World {
     this.door = this.level.door;
     this.traps = this.level.traps || [];
     this.endboss = this.level.endboss;
-    this.endbossHealthBar = new StatusBar(
-      'endboss',
-      720,
-      20,
-      200,
-      40,
-      'Endboss'
-    );
+    this.endbossHealthBar = new StatusBar('endboss', 720, 20, 200, 40, 'Troll');
     this.endboss.setStatusBars(this.endbossHealthBar);
 
     this.camera_x = -this.character.x + 100;
@@ -90,10 +82,14 @@ class World {
       poison.handleFloating();
     });
     this.hearts.forEach((heart) => heart.handleFloating());
-    this.knights.forEach((knight) => knight.handleAnimations());
+    this.knights.forEach((knight) => {
+      knight.handleAnimations();
+      knight.moveLeft();
+    });
     this.key.handleFloating();
     this.traps.forEach((trap) => trap.handleAnimations());
     this.endboss.handleAnimations();
+    
   }
 
   draw() {

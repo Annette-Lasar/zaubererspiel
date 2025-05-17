@@ -94,12 +94,12 @@ function generateBackgroundsLvl() {
 
 function generateKnightsLvl() {
   return [
-    new Knight(0, 900, 1),
-    new Knight(2000, 1500, 2),
-    new Knight(4000, 2100, 3),
-    new Knight(8000, 2700, 4),
-    new Knight(10000, 3300, 5),
-    new Knight(12000, 3900, 6),
+    new Knight(500),
+    new Knight(1600),
+    new Knight(2100),
+    new Knight(3700),
+    new Knight(4800),
+    new Knight(5400),
   ];
 }
 
