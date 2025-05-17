@@ -9,7 +9,7 @@ const IMAGE_PATHS = {
   },
   game_items: {
     candle: './assets/img/game_items/candle.png',
-    skull: './assets/img/skull/skull_000.png',
+    skull: './assets/img/game_items/skull_000.png',
     crystal: './assets/img/game_items/diamond.png',
     key: './assets/img/game_items/key.png',
     hearts: [
@@ -152,30 +152,6 @@ const IMAGE_PATHS = {
       './assets/img/knight/walk/walk5.png',
     ],
   },
-  snake: {
-    walk: [
-      './assets/img/snake/walk/walk0.png',
-      './assets/img/snake/walk/walk1.png',
-      './assets/img/snake/walk/walk2.png',
-      './assets/img/snake/walk/walk3.png',
-    ],
-    attack: [
-      './assets/img/snake/attack/attack0.png',
-      './assets/img/snake/attack/attack1.png',
-      './assets/img/snake/attack/attack2.png',
-      './assets/img/snake/attack/attack3.png',
-    ],
-    hurt: [
-      './assets/img/snake/hurt/hurt0.png',
-      './assets/img/snake/hurt/hurt1.png',
-    ],
-    dead: [
-      './assets/img/snake/die/die0.png',
-      './assets/img/snake/die/die1.png',
-      './assets/img/snake/die/die2.png',
-      './assets/img/snake/die/die3.png',
-    ],
-  },
   gameUI: {
     status_bars: {
       health: [
@@ -210,5 +186,6 @@ const IMAGE_PATHS = {
     quit_game: './assets/img/game_ui/quit.png',
     try_again: './assets/img/game_ui/try_again.png',
     game_over: './assets/img/game_ui/login_and_pass/game_over.png',
+    tick_icon: './assets/img/game_ui/tick_icon.svg',
   },
 };

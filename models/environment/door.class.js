@@ -1,13 +1,14 @@
 class Door extends MovableObject {
-  constructor(x, y) {
+  offset = { top: 50, bottom: 100, left: 120, right: 120 };
+  constructor() {
     super();
     this.addToImageCache('door', LOADED_IMAGES.game_items.door);
     this.img = this.imageCache['door_0'];
-    this.x = x;
-    this.y = y;
-    this.width = 300;
+    this.x = 6300;
+    this.y = 130;
+    this.width = 460;
     this.height = 460;
-    this.offset = { top: 50, bottom: 100, left: 120, right: 120 };
+
     this.img = this.imageCache['door_0'];
     this.drawFrame();
   }

@@ -1,6 +1,6 @@
 class StatusBar extends MovableObject {
   percentage = 100;
-  constructor(type, x, y, width, height) {
+  constructor(type, x, y, width, height, label) {
     super();
     this.type = type;
     this.imageSet = LOADED_IMAGES.gameUI.status_bars[type];
@@ -10,6 +10,7 @@ class StatusBar extends MovableObject {
     this.y = y;
     this.width = width;
     this.height = height;
+    this.label = label;
     this.setPercentage(100);
   }
 
@@ -25,5 +26,15 @@ class StatusBar extends MovableObject {
     if (this.percentage >= 40) return 2;
     if (this.percentage >= 20) return 1;
     return 0;
+  }
+
+  drawLabel(ctx) {
+    if (!this.label) return;
+
+    ctx.font = '22px MedievalSharp';
+    ctx.fillStyle = '#821f09';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText(this.label, this.x + 5, this.y + 10); 
   }
 }

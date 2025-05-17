@@ -1,18 +1,21 @@
 class Character extends MovableObject {
   world;
-  height = 239;
-  width = 200;
+  height;
+  width;
   speed = 4;
   invulnerable = false;
   healthBar;
   poisonBar;
+  keyIcon;
+  tickIcon;
+  energy = 100;
   poisonCollected = 0;
-  isAfterDoor;
-  hasPassedDoor;
+  keyCollected = true;
+  hasPassedDoor = false;
   deadAnimationPlayed = false;
   hasKey = false;
   animationIntervals = [];
-  offset = { top: 60, bottom: 10, left: 215, right: 200 };
+  offset = { top: 40, bottom: 10, left: 5, right: 30 };
 
   constructor(world) {
     super();
@@ -23,28 +26,33 @@ class Character extends MovableObject {
     this.addToImageCache('die', LOADED_IMAGES.character.die);
     this.addToImageCache('hurt', LOADED_IMAGES.character.hurt);
     this.img = this.imageCache['idle_0'];
-    this.initCharacter();
-    this.canMoveLeftFlag = true;
-  }
-
-  initCharacter() {
-    this.applyGravity();
-    this.energy = 100;
     this.x = 0;
-    // this.x = 4000;
     this.y = 270;
-    this.hasPassedDoor = false;
-    this.isAfterDoor = false;
+    this.width = 200;
+    this.height = 239;
+    this.applyGravity();
     // this.healthBar.setPercentage(0)
     // this.poisonBar.setPercentage(0);
-    this.canMoveLeftFlag = true;
+  }
+
+  setKeyIcon(keyIcon) {
+    this.keyIcon = keyIcon;
+  }
+
+  setTickIcon(tickIcon) {
+    this.tickIcon = tickIcon;
+  }
+
+  drawTickIcon() {
+    if (this.keyCollected) {
+      this.world.a
+    }
   }
 
   handleMovements() {
     const isMovingRight =
       this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x + 200;
-    const isMovingLeft =
-      this.world.keyboard.LEFT && this.x > -500 && this.canMoveLeft();
+    const isMovingLeft = this.world.keyboard.LEFT && this.x > -500;
     if (isMovingRight) {
       this.otherDirection = false;
       this.moveRight();
@@ -83,46 +91,25 @@ class Character extends MovableObject {
 
   jump() {
     if (!this.isAboveGround()) {
-      this.speedY = 33;
+      this.speedY = 38;
       playJumpSound();
     }
-  }
-
-
-
-  canMoveLeft() {
-    if (this.hasPassedDoor && this.x < 6471) return false;
-    return this.canMoveLeftFlag && !this.isAfterDoor;
   }
 
   isMoving() {
     return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
   }
 
-  // drawFrame() {
-  //   ctx.globalAlpha = 1;
-  //   ctx.strokeStyle = 'blue';
-  //   ctx.lineWidth = 2;
-
-  //   const offsetX = this.x + this.offset.left;
-  //   const offsetY = this.y + this.offset.top;
-  //   const offsetWidth = this.width - this.offset.left - this.offset.right;
-  //   const offsetHeight = this.height - this.offset.top - this.offset.bottom;
-
-  //   ctx.strokeRect(offsetX, offsetY, offsetWidth, offsetHeight);
-  // }
-
   drawFrame(ctx) {
-  ctx.globalAlpha = 1;
-  ctx.strokeStyle = 'blue';
-  ctx.lineWidth = 2;
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = 'blue';
+    ctx.lineWidth = 2;
 
-  const offsetX = this.x + this.offset.left;
-  const offsetY = this.y + this.offset.top;
-  const offsetWidth = this.width - this.offset.left - this.offset.right;
-  const offsetHeight = this.height - this.offset.top - this.offset.bottom;
+    const offsetX = this.x + this.offset.left;
+    const offsetY = this.y + this.offset.top;
+    const offsetWidth = this.width - this.offset.left - this.offset.right;
+    const offsetHeight = this.height - this.offset.top - this.offset.bottom;
 
-  ctx.strokeRect(offsetX, offsetY, offsetWidth, offsetHeight);
-}
-
+    ctx.strokeRect(offsetX, offsetY, offsetWidth, offsetHeight);
+  }
 }

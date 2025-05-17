@@ -1,20 +1,24 @@
-class Heart extends MovableObject {
-  offset = { top: 0, bottom: 0, left: 0, right: 0 };
+class Trap extends MovableObject {
+  height = 180;
+  width = 180;
+  offset = { top: 55, bottom: 50, left: 30, right: 30 };
+
   constructor(x) {
     super();
-    this.img = LOADED_IMAGES.game_items.hearts[1];
+    this.addToImageCache('trap', LOADED_IMAGES.game_items.trap);
+    this.img = this.imageCache['trap_0'];
     this.x = x;
-    this.y = Math.floor(Math.random() * 200);
-    this.startY = this.y;
-    this.height = 40;
-    this.width = 40;
-    this.floatAmplitude = 15;
-    this.floatSpeed = 1.5;
+    this.y = 380;
   }
 
-  drawFrame() {
+  handleAnimations() {
+    this.animate(LOADED_IMAGES.game_items.trap);
+  }
+
+
+    drawFrame() {
     ctx.globalAlpha = 1;
-    ctx.strokeStyle = 'green';
+    ctx.strokeStyle = 'purple';
     ctx.lineWidth = 2;
 
     const offsetX = this.x + this.offset.left;

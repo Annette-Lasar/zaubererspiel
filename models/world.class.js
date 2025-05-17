@@ -21,6 +21,8 @@ class World {
   characterStatusBar;
   poisonStatusBar;
   endbossHealthBar;
+  characterKeyIcon;
+  characterTickIcon;
   endGame;
   quitButton;
   tryAgainButton;
@@ -43,27 +45,38 @@ class World {
 
   initializeGameObjects() {
     this.character = new Character(this);
-    this.characterStatusBar = new StatusBar('health', 20, 20, 150, 40);
-    this.poisonStatusBar = new StatusBar('poison', 20, 70, 150, 40);
+    this.characterStatusBar = new StatusBar(
+      'health',
+      20,
+      20,
+      200,
+      40,
+      'Wizard'
+    );
+    this.poisonStatusBar = new StatusBar('poison', 20, 70, 200, 40);
     this.character.setStatusBars(this.characterStatusBar, this.poisonStatusBar);
+    this.characterKeyIcon = new Key(250, 10);
+    this.character.setKeyIcon(this.characterKeyIcon);
+    this.characterTickIcon = new TickIcon();
+    this.character.setTickIcon(this.characterTickIcon);
 
     this.backgrounds = this.level.backgrounds || [];
-    // this.knights = this.level.knights || [];
-    // this.poisons = this.level.poisons || [];
-    // this.hearts = this.level.hearts || [];
-    // this.key = this.level.key;
-    // this.door = this.level.door;
-    // this.traps = this.level.traps || [];
-    // this.endboss = this.level.endboss;
-    // this.endbossHealthBar = new StatusBar('endboss', 500, 20, 200, 40);
-    // this.endboss.setStatusBars(this.endbossHealthBar);
-
-    /*    this.enemies = [
-      ...this.knights,
-      ...this.snakes,
-      ...this.traps,
-      this.endboss,
-    ]; */
+    this.knights = this.level.knights || [];
+    this.poisons = this.level.poisons || [];
+    this.hearts = this.level.hearts || [];
+    this.key = this.level.key;
+    this.door = this.level.door;
+    this.traps = this.level.traps || [];
+    this.endboss = this.level.endboss;
+    this.endbossHealthBar = new StatusBar(
+      'endboss',
+      720,
+      20,
+      200,
+      40,
+      'Endboss'
+    );
+    this.endboss.setStatusBars(this.endbossHealthBar);
 
     this.camera_x = -this.character.x + 100;
   }
@@ -72,15 +85,15 @@ class World {
     this.character.handleMovements();
     this.camera_x = -this.character.x + 100;
     this.character.handleAnimations();
-    // this.poisons.forEach((poison) => {
-    //   poison.handleAnimations();
-    //   poison.handleFloating();
-    // });
-    // this.hearts.forEach((heart) => heart.handleFloating());
-    // this.knights.forEach((knight) => knight.handleAnimations());
-    // this.key.handleFloating();
-    // this.traps.forEach((trap) => trap.handleAnimations());
-    // this.endboss.handleAnimations();
+    this.poisons.forEach((poison) => {
+      poison.handleAnimations();
+      poison.handleFloating();
+    });
+    this.hearts.forEach((heart) => heart.handleFloating());
+    this.knights.forEach((knight) => knight.handleAnimations());
+    this.key.handleFloating();
+    this.traps.forEach((trap) => trap.handleAnimations());
+    this.endboss.handleAnimations();
   }
 
   draw() {
@@ -89,27 +102,35 @@ class World {
     this.ctx.translate(this.camera_x, 0);
 
     this.addObjectsToMap(this.backgrounds);
-    // this.addObjectsToMap(this.knights);
-    // this.addObjectsToMap(this.poisons);
-    // this.addObjectsToMap(this.hearts);
-    // this.addObjectsToMap(this.traps);
-    // this.addToMap(this.key);
-    // this.addToMap(this.door);
-    // this.addToMap(this.endboss);
+    this.addObjectsToMap(this.knights);
+    this.addObjectsToMap(this.poisons);
+    this.addObjectsToMap(this.hearts);
+    this.addObjectsToMap(this.traps);
+    this.addToMap(this.key);
+    this.addToMap(this.door);
+    this.addToMap(this.endboss);
     this.addToMap(this.character);
 
-    // this.character.drawFrame(this.ctx);
-    // this.key.drawFrame(this.ctx);
-    // this.poisons.forEach((poison) => poison.drawFrame(this.ctx));
-    // this.hearts.forEach((heart) => heart.drawFrame(this.ctx));
-    // this.traps.forEach((trap) => trap.drawFrame(this.ctx));
-    // this.endboss.drawFrame(this.ctx);
+    this.character.drawFrame(this.ctx);
+    this.key.drawFrame(this.ctx);
+    this.knights.forEach((knight) => knight.drawFrame(this.ctx));
+    this.poisons.forEach((poison) => poison.drawFrame(this.ctx));
+    this.hearts.forEach((heart) => heart.drawFrame(this.ctx));
+    this.traps.forEach((trap) => trap.drawFrame(this.ctx));
+    this.endboss.drawInnerFrame(this.ctx);
+    this.endboss.drawOuterFrame(this.ctx);
 
     this.ctx.restore();
 
-    // this.addToMap(this.character.healthBar);
-    // this.addToMap(this.character.poisonBar);
-    // this.addToMap(this.endbossHealthBar);
+    this.addToMap(this.character.healthBar);
+    this.addToMap(this.character.poisonBar);
+    this.addToMap(this.character.keyIcon);
+    this.addToMap(this.endbossHealthBar);
+    this.character.healthBar.drawLabel(this.ctx);
+    this.endbossHealthBar.drawLabel(this.ctx);
+    if (this.character.keyCollected) {
+      this.character.tickIcon.draw(ctx);
+    }
   }
 
   updatePoison() {

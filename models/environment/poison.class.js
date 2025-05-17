@@ -1,24 +1,23 @@
-class Trap extends MovableObject {
-  height = 180;
-  width = 180;
-  offset = { top: 55, bottom: 50, left: 30, right: 30 };
-
+class PoisonObject extends MovableObject {
+  offset = { top: 0, bottom: 0, left: 10, right: 10 };
   constructor(x) {
     super();
-    this.addToImageCache('trap', LOADED_IMAGES.game_items.trap);
-    this.img = this.imageCache['trap_0'];
+    this.addToImageCache('poison', LOADED_IMAGES.game_items.poison);
+    this.img = this.imageCache['poison_0'];
     this.x = x;
-    this.y = 330;
+    this.y = Math.floor(Math.random() * 220);
+    this.startY = this.y;
+    this.width = 70;
+    this.height = 70;
   }
 
   handleAnimations() {
-    this.animate(LOADED_IMAGES.game_items.trap);
+    this.animate(LOADED_IMAGES.game_items.poison);
   }
 
-
-    drawFrame() {
+  drawFrame() {
     ctx.globalAlpha = 1;
-    ctx.strokeStyle = 'purple';
+    ctx.strokeStyle = 'black';
     ctx.lineWidth = 2;
 
     const offsetX = this.x + this.offset.left;

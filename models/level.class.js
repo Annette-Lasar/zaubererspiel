@@ -7,7 +7,7 @@ class Level {
   door;
   traps;
   endboss;
-  level_end_x = 5800;
+  level_end_x = 6500;
 
   constructor(
     backgrounds,

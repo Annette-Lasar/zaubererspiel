@@ -157,8 +157,12 @@ function waitForAllImagesToLoad(images, result) {
  */
 function preloadImages() {
   document.getElementById('loadingMessage').classList.remove('d-none');
-  preloadImagesStructured(IMAGE_PATHS)
-    .then((loadedImages) => {
+
+  Promise.all([
+  preloadImagesStructured(IMAGE_PATHS),
+  document.fonts.load('20px MedievalSharp')
+  ])
+    .then(([loadedImages]) => {
       window.LOADED_IMAGES = loadedImages;
       console.log('Geladene Bilder: ', LOADED_IMAGES);
       document.getElementById('loadingMessage').classList.add('d-none');
