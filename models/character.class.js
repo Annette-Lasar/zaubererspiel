@@ -26,7 +26,8 @@ class Character extends MovableObject {
     this.addToImageCache('die', LOADED_IMAGES.character.die);
     this.addToImageCache('hurt', LOADED_IMAGES.character.hurt);
     this.img = this.imageCache['idle_0'];
-    this.x = 0;
+    // this.x = 0;
+    this.x = 4800;
     this.y = 270;
     this.width = 200;
     this.height = 239;

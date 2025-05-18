@@ -93,7 +93,7 @@ class World {
     this.key.handleFloating();
     this.traps.forEach((trap) => trap.handleAnimations());
     this.endboss.handleAnimations();
-    
+    this.endboss.patrol();
   }
 
   draw() {

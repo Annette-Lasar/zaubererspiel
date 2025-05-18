@@ -181,5 +181,5 @@ function generateTrapsLvl() {
 }
 
 function generateEndboss() {
-  return new Endboss(12);
+  return new Endboss();
 }
