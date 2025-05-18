@@ -6,7 +6,7 @@ class Knight extends MovableObject {
     this.img = this.imageCache['walk_0'];
     this.x = x;
     this.y = 250;
-    this.speed = 1.5 + Math.random() * 0.5;
+    this.speed = 1 + Math.random() * 0.5;
     this.width = 520;
     this.height = 290;
   }

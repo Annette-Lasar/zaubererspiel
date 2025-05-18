@@ -11,6 +11,8 @@
 function createLevel1() {
   return new Level(
     generateBackgroundsLvl(),
+    generateCandlesLvl(),
+    generateSkullsLvl(),
     generateKnightsLvl(),
     generatePoisonsLvl(),
     generateHeartsLvl(),
@@ -89,6 +91,31 @@ function generateBackgroundsLvl() {
     new Background(LOADED_IMAGES.backgrounds.wood3, 960 * 9),
     new Background(LOADED_IMAGES.backgrounds.wood4, 960 * 9),
     new Background(LOADED_IMAGES.backgrounds.wood5, 960 * 9),
+  ];
+}
+
+function generateCandlesLvl() {
+  return [
+    new Candle(-154),
+    new Candle(806),
+    new Candle(1766),
+    new Candle(2726),
+    new Candle(3686),
+    new Candle(4646),
+    new Candle(5606),
+  ];
+}
+
+function generateSkullsLvl() {
+  return [
+    new Skull(-200),
+    new Skull(760),
+    new Skull(1720),
+    new Skull(2680),
+    new Skull(3640),
+    new Skull(4600),
+    new Skull(5560),
+    new Skull(6360),
   ];
 }
 

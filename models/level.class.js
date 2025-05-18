@@ -1,5 +1,7 @@
 class Level {
   backgrounds;
+  candles;
+  skulls;
   knights;
   poisons;
   hearts;
@@ -7,10 +9,12 @@ class Level {
   door;
   traps;
   endboss;
-  level_end_x = 6500;
+  level_end_x = 7000;
 
   constructor(
     backgrounds,
+    candles,
+    skulls,
     knights,
     poisons,
     hearts,
@@ -20,6 +24,8 @@ class Level {
     endboss
   ) {
     this.backgrounds = backgrounds || [];
+    this.candles = candles || [];
+    this.skulls = skulls || [];
     this.knights = knights || [];
     this.poisons = poisons || [];
     this.hearts = hearts || [];

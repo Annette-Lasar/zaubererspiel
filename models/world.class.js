@@ -8,6 +8,8 @@ class World {
   camera_x = 0;
 
   backgrounds = [];
+  candles = [];
+  skulls = [];
   knights = [];
   poisons = [];
   hearts = [];
@@ -60,6 +62,8 @@ class World {
     this.character.setTickIcon(this.characterTickIcon);
 
     this.backgrounds = this.level.backgrounds || [];
+    this.candles = this.level.candles || [];
+    this.skulls = this.level.skulls || [];
     this.knights = this.level.knights || [];
     this.poisons = this.level.poisons || [];
     this.hearts = this.level.hearts || [];
@@ -98,6 +102,8 @@ class World {
     this.ctx.translate(this.camera_x, 0);
 
     this.addObjectsToMap(this.backgrounds);
+    this.addObjectsToMap(this.candles);
+    this.addObjectsToMap(this.skulls);
     this.addObjectsToMap(this.knights);
     this.addObjectsToMap(this.poisons);
     this.addObjectsToMap(this.hearts);
