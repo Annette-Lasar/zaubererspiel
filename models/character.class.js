@@ -31,6 +31,12 @@ class Character extends MovableObject {
     this.y = 270;
     this.width = 200;
     this.height = 239;
+    this.soundWalking = LOADED_SOUNDS.character.walk;
+    this.soundWalking.loop = true;
+    this.soundWalking.volume = 0.1;
+    this.soundJump = LOADED_SOUNDS.character.jump;
+    this.soundJump.volume = 0.5;
+
     this.applyGravity();
     // this.healthBar.setPercentage(0)
     // this.poisonBar.setPercentage(0);
@@ -69,10 +75,10 @@ class Character extends MovableObject {
       this.jump();
     }
 
-    if (isMovingRight || isMovingLeft) {
-      playWalkingSound();
+    if ((isMovingRight || isMovingLeft) && sounds ) {
+      this.startWalkingSound();
     } else {
-      stopWalkingSound();
+      this.stopWalkingSound();
     }
   }
 
@@ -93,12 +99,30 @@ class Character extends MovableObject {
   jump() {
     if (!this.isAboveGround()) {
       this.speedY = 38;
-      playJumpSound();
+      if (sounds) {
+        this.soundJump.pause();
+        this.soundJump.currentTime = 0;
+        this.soundJump.play();
+      }
     }
   }
 
   isMoving() {
     return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+  }
+
+  startWalkingSound() {
+    if (this.soundWalking.paused) {
+      this.soundWalking.currentTime = 0;
+      this.soundWalking.play();
+    }
+  }
+
+  stopWalkingSound() {
+    if (!this.soundWalking.paused) {
+      this.soundWalking.pause();
+      this.soundWalking.currentTime = 0;
+    }
   }
 
   drawFrame(ctx) {

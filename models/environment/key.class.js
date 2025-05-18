@@ -11,6 +11,9 @@ class Key extends MovableObject {
     this.floatAmplitude = 20;
     this.floatSpeed = 2;
     this.floatOffset = 0;
+
+    this.pingSound = LOADED_SOUNDS.key.collected;
+    this.pingSound.volume = 0.5;
   }
 
     drawFrame() {

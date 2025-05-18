@@ -10,6 +10,9 @@ class Heart extends MovableObject {
     this.width = 50;
     this.floatAmplitude = 15;
     this.floatSpeed = 1.5;
+
+    this.collectingSound = LOADED_SOUNDS.heart.collected;
+    this.collectingSound.volume = 0.5;
   }
 
   drawFrame() {

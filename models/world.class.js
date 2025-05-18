@@ -24,6 +24,7 @@ class World {
   endbossHealthBar;
   characterKeyIcon;
   characterTickIcon;
+
   endGame;
   quitButton;
   tryAgainButton;
@@ -81,15 +82,21 @@ class World {
     this.character.handleMovements();
     this.camera_x = -this.character.x + 100;
     this.character.handleAnimations();
-    this.poisons.forEach((poison) => {
-      poison.handleAnimations();
-      poison.handleFloating();
-    });
-    this.hearts.forEach((heart) => heart.handleFloating());
-    this.knights.forEach((knight) => {
-      knight.handleAnimations();
-      knight.moveLeft();
-    });
+    if (Array.isArray(this.poisons) && this.poisons.length > 0) {
+      this.poisons.forEach((poison) => {
+        poison.handleAnimations();
+        poison.handleFloating();
+      });
+    }
+    if (Array.isArray(this.hearts) && this.hearts.length > 0) {
+      this.hearts.forEach((heart) => heart.handleFloating());
+    }
+    if (Array.isArray(this.hearts) && this.hearts.length > 0) {
+      this.knights.forEach((knight) => {
+        knight.handleAnimations();
+        knight.moveLeft();
+      });
+    }
     if (this.key) this.key.handleFloating();
     this.traps.forEach((trap) => trap.handleAnimations());
     this.endboss.handleAnimations();
@@ -100,9 +107,21 @@ class World {
 
   updateCollisions() {
     this.checkCollisionWithKey();
-    // später:
-    // this.checkCollisionWithPoison();
-    // this.checkCollisionWithHeart();
+    this.poisons = this.checkCollisionWithCollectableItem(
+      this.poisons,
+      LOADED_SOUNDS.poison.collected,
+      () => {
+        this.character.poisonCollected += 1;
+      }
+    );
+
+    this.hearts = this.checkCollisionWithCollectableItem(
+      this.hearts,
+      LOADED_SOUNDS.heart.collected,
+      () => {
+        this.character.energy = Math.min(this.character.energy + 20, 100);
+      }
+    );
   }
 
   checkCollisionWithKey() {
@@ -110,9 +129,33 @@ class World {
 
     if (this.character.isColliding(this.key)) {
       this.character.keyCollected = true;
-      // playKeyPickupSound();
+      if (sounds) {
+        this.key.pingSound.pause();
+        this.key.pingSound.currentTime = 0;
+        this.key.pingSound.play();
+      }
+
       this.key = null;
     }
+  }
+
+  checkCollisionWithCollectableItem(array, sound, effectFn) {
+    if (!array || array.length === 0) return;
+
+    return array.filter((item) => {
+      if (this.character.isColliding(item)) {
+        effectFn();
+
+        if (sounds) {
+          sound.pause();
+          sound.currentTime = 0;
+          sound.play();
+        }
+        return false;
+      }
+
+      return true;
+    });
   }
 
   draw() {
@@ -123,23 +166,35 @@ class World {
     this.addObjectsToMap(this.backgrounds);
     this.addObjectsToMap(this.candles);
     this.addObjectsToMap(this.skulls);
-    this.addObjectsToMap(this.knights);
-    this.addObjectsToMap(this.poisons);
-    this.addObjectsToMap(this.hearts);
+    if (Array.isArray(this.knights) && this.knights.length > 0) {
+      this.addObjectsToMap(this.knights);
+    }
+    if (Array.isArray(this.poisons) && this.poisons.length > 0) {
+      this.addObjectsToMap(this.poisons);
+    }
+    if (Array.isArray(this.hearts) && this.hearts.length > 0) {
+      this.addObjectsToMap(this.hearts);
+    }
     this.addObjectsToMap(this.traps);
     if (this.key) this.addToMap(this.key);
     this.addToMap(this.door);
-    this.addToMap(this.endboss);
-    this.addToMap(this.character);
+    if (this.endboss) this.addToMap(this.endboss);
+    if (this.character) this.addToMap(this.character);
 
     this.character.drawFrame(this.ctx);
     if (this.key) this.key.drawFrame(this.ctx);
-    this.knights.forEach((knight) => knight.drawFrame(this.ctx));
-    this.poisons.forEach((poison) => poison.drawFrame(this.ctx));
-    this.hearts.forEach((heart) => heart.drawFrame(this.ctx));
+    if (Array.isArray(this.knights) && this.knights.length > 0) {
+      this.knights.forEach((knight) => knight.drawFrame(this.ctx));
+    }
+    if (Array.isArray(this.poisons) && this.poisons.length > 0) {
+      this.poisons.forEach((poison) => poison.drawFrame(this.ctx));
+    }
+    if (Array.isArray(this.hearts) && this.hearts.length > 0) {
+      this.hearts.forEach((heart) => heart.drawFrame(this.ctx));
+    }
     this.traps.forEach((trap) => trap.drawFrame(this.ctx));
-    this.endboss.drawInnerFrame(this.ctx);
-    this.endboss.drawOuterFrame(this.ctx);
+    if (this.endboss) this.endboss.drawInnerFrame(this.ctx);
+    if (this.endboss) this.endboss.drawOuterFrame(this.ctx);
 
     this.ctx.restore();
 
