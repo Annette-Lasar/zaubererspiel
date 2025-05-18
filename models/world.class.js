@@ -90,10 +90,29 @@ class World {
       knight.handleAnimations();
       knight.moveLeft();
     });
-    this.key.handleFloating();
+    if (this.key) this.key.handleFloating();
     this.traps.forEach((trap) => trap.handleAnimations());
     this.endboss.handleAnimations();
     this.endboss.patrol();
+
+    this.updateCollisions();
+  }
+
+  updateCollisions() {
+    this.checkCollisionWithKey();
+    // später:
+    // this.checkCollisionWithPoison();
+    // this.checkCollisionWithHeart();
+  }
+
+  checkCollisionWithKey() {
+    if (!this.key) return;
+
+    if (this.character.isColliding(this.key)) {
+      this.character.keyCollected = true;
+      // playKeyPickupSound();
+      this.key = null;
+    }
   }
 
   draw() {
@@ -108,13 +127,13 @@ class World {
     this.addObjectsToMap(this.poisons);
     this.addObjectsToMap(this.hearts);
     this.addObjectsToMap(this.traps);
-    this.addToMap(this.key);
+    if (this.key) this.addToMap(this.key);
     this.addToMap(this.door);
     this.addToMap(this.endboss);
     this.addToMap(this.character);
 
     this.character.drawFrame(this.ctx);
-    this.key.drawFrame(this.ctx);
+    if (this.key) this.key.drawFrame(this.ctx);
     this.knights.forEach((knight) => knight.drawFrame(this.ctx));
     this.poisons.forEach((poison) => poison.drawFrame(this.ctx));
     this.hearts.forEach((heart) => heart.drawFrame(this.ctx));
@@ -133,14 +152,6 @@ class World {
     if (this.character.keyCollected) {
       this.character.tickIcon.draw(ctx);
     }
-  }
-
-  updatePoison() {
-    this.poisonsArray.forEach((poison, index) => {
-      if (this.collisionHandler.checkCollision(this.character, poison)) {
-        this.character.collectPoison(poison, index);
-      }
-    });
   }
 
   clearCanvas() {

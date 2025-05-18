@@ -65,11 +65,12 @@ class MovableObject extends DrawableObject {
 
   isColliding(mo) {
     if (!(mo instanceof DrawableObject)) return false;
-    const colliding =
+    return (
       this.x + this.width > mo.x &&
       this.x < mo.x + mo.width &&
       this.y + this.height > mo.y &&
-      this.y < mo.y + mo.height;
+      this.y < mo.y + mo.height
+    );
   }
 
   takeDamage(damage) {
