@@ -97,7 +97,7 @@ class World {
       this.knights.forEach((knight) => knight.update());
 
     if (this.key) this.key.handleFloating();
-    this.traps.forEach((trap) => trap.handleAnimations());
+    // this.traps.forEach((trap) => trap.handleAnimations());
     this.endboss.update();
 
     this.updateCollisions();

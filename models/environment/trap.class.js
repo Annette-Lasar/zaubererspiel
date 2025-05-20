@@ -1,6 +1,4 @@
 class Trap extends MovableObject {
-  height = 180;
-  width = 180;
   offset = { top: 55, bottom: 50, left: 30, right: 30 };
 
   constructor(x) {
@@ -9,6 +7,8 @@ class Trap extends MovableObject {
     this.img = this.imageCache['trap_0'];
     this.x = x;
     this.y = 380;
+    this.height = 180;
+    this.width = 180;
   }
 
   handleAnimations() {

@@ -3,12 +3,12 @@ class Character extends MovableObject {
   height;
   width;
   speed = 4;
-  invulnerable = false;
   healthBar;
   poisonBar;
   keyIcon;
   tickIcon;
   energy = 100;
+  invulnerable = false;
   bottleReady = true;
   poisonCollected = 0;
   keyCollected = false;

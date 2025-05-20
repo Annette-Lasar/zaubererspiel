@@ -8,7 +8,7 @@ class Keyboard {
    * Sets up keyboard controls for the game.
    * @param {Object} world - The game world object.
    */
-  setupControls(world) {
+  setupControls() {
     window.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') {
         this.LEFT = true;
@@ -22,7 +22,6 @@ class Keyboard {
 
       if (e.key.toLowerCase() === 'd' && !this.D) {
         this.D = true;
-        // world.character.throwPoisonBottle();
       }
     });
 

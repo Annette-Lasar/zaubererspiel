@@ -175,7 +175,7 @@ function startGame() {
   ctx = canvas.getContext('2d');
   const level1 = createLevel1();
   world = new World(canvas, keyboard, level1);
-  keyboard.setupControls(world);
+  keyboard.setupControls();
   // keyboard.setupTouchControls(world);
   gameLoop();
 }
