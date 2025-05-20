@@ -90,10 +90,13 @@ class Character extends MovableObject {
       if (!this.isDeadAlready) {
         this.playDeathAnimation(
           LOADED_IMAGES.character.die,
-          LOADED_SOUNDS.character.dying
+          LOADED_SOUNDS.character.dying,
+          () => {
+            this.stopWalkingSound();
+          }
         );
       } else {
-        this.animate(LOADED_IMAGES.character.die); // Animation trotzdem weiterspielen!
+        this.animate(LOADED_IMAGES.character.die);
       }
       return;
     } else if (this.isHurt()) {
@@ -108,8 +111,9 @@ class Character extends MovableObject {
   }
 
   jump() {
+    console.log('Sprung!');
     if (!this.isAboveGround()) {
-      this.speedY = 38;
+      this.speedY = 40;
       if (sounds) {
         this.soundJump.pause();
         this.soundJump.currentTime = 0;

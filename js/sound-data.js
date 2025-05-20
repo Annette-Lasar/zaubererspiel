@@ -20,6 +20,9 @@ const SOUND_PATHS = {
   heart: {
     collected: './assets/audio/collect_heart.mp3',
   },
+  trap: {
+    snap: './assets/audio/trap_snap.mp3',
+  },
   troll: {
     hurt: './assets/audio/troll_hurt.mp3',
     dying: './assets/audio/troll_dying.mp3',

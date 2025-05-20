@@ -7,16 +7,21 @@ class Trap extends MovableObject {
     this.img = this.imageCache['trap_0'];
     this.x = x;
     this.y = 380;
-    this.height = 180;
-    this.width = 180;
+    this.height = 150;
+    this.width = 150;
+    this.isShut = false;
   }
 
-  handleAnimations() {
-    this.animate(LOADED_IMAGES.game_items.trap);
+  shutTrap() {
+    if (!this.isShut) {
+      this.playAnimationOnce(LOADED_IMAGES.game_items.trap, () => {
+        this.isShut = true;
+      });
+      this.playSound(LOADED_SOUNDS.trap.snap);
+    }
   }
 
-
-    drawFrame() {
+  drawFrame() {
     ctx.globalAlpha = 1;
     ctx.strokeStyle = 'purple';
     ctx.lineWidth = 2;

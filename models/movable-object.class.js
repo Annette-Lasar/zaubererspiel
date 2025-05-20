@@ -69,22 +69,23 @@ class MovableObject extends DrawableObject {
     };
   }
 
-  isAbove(other) {
+  /*   isAbove(other) {
     const myBox = this.getHitbox();
     const otherBox = other.getHitbox();
 
-    return myBox.y + myBox.height <= otherBox.y + 10;
-  }
+    const isFalling = this.speedY < 0; 
 
-  /*   isColliding(mo) {
-    if (!(mo instanceof DrawableObject)) return false;
-    return (
-      this.x + this.width > mo.x &&
-      this.x < mo.x + mo.width &&
-      this.y + this.height > mo.y &&
-      this.y < mo.y + mo.height
-    );
+    return isFalling && myBox.y + myBox.height <= otherBox.y + 10;
   } */
+
+  isAbove(other, tolerance = 10) {
+    const myBox = this.getHitbox();
+    const otherBox = other.getHitbox();
+
+    const isFalling = this.speedY < 0;
+
+    return isFalling && myBox.y + myBox.height <= otherBox.y + tolerance;
+  }
 
   isColliding(other) {
     if (!(other instanceof DrawableObject)) return false;
@@ -106,6 +107,9 @@ class MovableObject extends DrawableObject {
     this.invulnerable = true;
     this.playSound(sound);
     this.playAnimationOnce(imageSet);
+    setTimeout(() => {
+      this.invulnerable = false;
+    }, 800);
   }
 
   isDead() {
@@ -116,24 +120,22 @@ class MovableObject extends DrawableObject {
     return (Date.now() - this.lastHit) / 1000 < 5;
   }
 
-  die() {
-    this.deadAnimationPlayed = true;
-    this.playDeathAnimation();
-  }
-
-  playDeathAnimation(imageSet, sound = null) {
+  playDeathAnimation(imageSet, sound = null, afterAnimation) {
     if (!this.isDead() || this.isDeadAlready) return;
 
     this.isDeadAlready = true;
     this.playSound(sound);
-    this.playAnimationOnce(imageSet);
+    this.playAnimationOnce(imageSet, afterAnimation);
   }
 
-  playAnimationOnce(imageSet) {
+  playAnimationOnce(imageSet, afterAnimation = null) {
     let frame = 0;
     const interval = setInterval(() => {
       if (frame >= imageSet.length) {
         clearInterval(interval);
+        if (typeof afterAnimation === 'function') {
+          afterAnimation();
+        }
         return;
       }
 
@@ -142,9 +144,6 @@ class MovableObject extends DrawableObject {
         this.img = img;
       }
     }, this.animationSpeed || 100);
-    setTimeout(() => {
-      this.invulnerable = false;
-    }, 2000);
   }
 
   animate(images) {
