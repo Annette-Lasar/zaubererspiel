@@ -7,6 +7,7 @@ class ThrowableObject extends MovableObject {
     this.y = y;
     this.height = 70;
     this.width = 70;
+    this.hasHit = false;
     this.throw();
   }
 
@@ -17,21 +18,23 @@ class ThrowableObject extends MovableObject {
     this.applyBottleGravity();
 
     this.throwInterval = setInterval(() => {
-      this.x += 5; 
+      this.x += 5;
     }, 1000 / 60);
   }
 
+  registerHit() {
+    this.hasHit = true;
+  }
 
   applyBottleGravity() {
     this.gravityInterval = setInterval(() => {
       this.y += this.speedY;
       this.speedY += this.acceleration;
 
-
       if (this.y > 720) {
         clearInterval(this.gravityInterval);
         clearInterval(this.throwInterval);
-        this.markedForRemoval = true; 
+        this.markedForRemoval = true;
       }
     }, 1000 / 25);
   }

@@ -24,14 +24,16 @@ class Endboss extends MovableObject {
   }
 
   update() {
+    if (this.isDeadAlready) return;
     this.handleAnimations();
     this.patrol();
-    this.healthBar.setPercentage(this.energy);
+    // this.healthBar.setPercentage(this.energy);
   }
 
   handleAnimations() {
     this.animate(LOADED_IMAGES.troll.walk);
   }
+
 
   getRandomTurnPoint(direction) {
     if (direction === 'right') {
@@ -56,6 +58,28 @@ class Endboss extends MovableObject {
         this.nextTurnPoint = this.getRandomTurnPoint('left');
       }
     }
+  }
+
+  die() {
+    if (this.isDeadAlready || !this.isDead()) return;
+
+    this.playDeathAnimation(
+      LOADED_IMAGES.troll.die,
+      LOADED_SOUNDS.troll.die,
+      null
+    );
+  }
+
+  isHitBy(otherObject, otherOffset = null, myOffset = this.outerOffset) {
+    const a = otherObject.getHitbox(otherOffset);
+    const b = this.getHitbox(myOffset);
+
+    return (
+      a.x + a.width > b.x &&
+      a.x < b.x + b.width &&
+      a.y + a.height > b.y &&
+      a.y < b.y + b.height
+    );
   }
 
   drawInnerFrame() {

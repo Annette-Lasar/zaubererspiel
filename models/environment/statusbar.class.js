@@ -34,6 +34,6 @@ class StatusBar extends MovableObject {
     ctx.fillStyle = '#821f09';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'bottom';
-    ctx.fillText(this.label, this.x + 5, this.y + 10); 
+    ctx.fillText(this.label, this.x + 5, this.y + 10);
   }
 }

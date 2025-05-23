@@ -171,14 +171,10 @@ function generateDoorLvl() {
  * @returns {Array} An array of traps.
  */
 function generateTrapsLvl() {
-  return [
-    new Trap(800),
-    new Trap(1600),
-    new Trap(2600),
-    new Trap(3400),
-    new Trap(4800),
-  ];
+  return [new Trap(800), new Trap(1600), new Trap(2600), new Trap(3400)];
 }
+
+// new Trap(4800),
 
 function generateEndboss() {
   return new Endboss();

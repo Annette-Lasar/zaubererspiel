@@ -3,6 +3,7 @@ class MovableObject extends DrawableObject {
   speedY = 0;
   acceleration = 2.5;
   energy = 100;
+  invulnerable = false;
   isDeadAlready = false;
   lastHit = 0;
   otherDirection = false;
@@ -59,24 +60,14 @@ class MovableObject extends DrawableObject {
     return this.y < 270;
   }
 
-  getHitbox() {
+  getHitbox(offset = this.offset) {
     return {
-      x: this.x + (this.offset?.left || 0),
-      y: this.y + (this.offset?.top || 0),
-      width: this.width - (this.offset?.left || 0) - (this.offset?.right || 0),
-      height:
-        this.height - (this.offset?.top || 0) - (this.offset?.bottom || 0),
+      x: this.x + (offset?.left || 0),
+      y: this.y + (offset?.top || 0),
+      width: this.width - (offset?.left || 0) - (offset?.right || 0),
+      height: this.height - (offset?.top || 0) - (offset?.bottom || 0),
     };
   }
-
-  /*   isAbove(other) {
-    const myBox = this.getHitbox();
-    const otherBox = other.getHitbox();
-
-    const isFalling = this.speedY < 0; 
-
-    return isFalling && myBox.y + myBox.height <= otherBox.y + 10;
-  } */
 
   isAbove(other, tolerance = 10) {
     const myBox = this.getHitbox();
@@ -104,6 +95,9 @@ class MovableObject extends DrawableObject {
   takeDamage(amount, sound, imageSet) {
     if (this.invulnerable || this.isDead()) return;
     this.energy = Math.max(this.energy - amount, 0);
+    if (this.healthBar) {
+      this.healthBar.setPercentage(this.energy);
+    }
     this.invulnerable = true;
     this.playSound(sound);
     this.playAnimationOnce(imageSet);
