@@ -9,9 +9,10 @@ class Character extends MovableObject {
   tickIcon;
   energy = 100;
   bottleReady = true;
-  // poisonCollected = 0;
-  poisonCollected = 1000;
+  poisonCollected = 0;
+  // poisonCollected = 1000;
   keyCollected = false;
+  // keyCollected = true;
   hasPassedDoor = false;
   offset = { top: 40, bottom: 10, left: 5, right: 30 };
 
@@ -24,8 +25,8 @@ class Character extends MovableObject {
     this.addToImageCache('die', LOADED_IMAGES.character.die);
     this.addToImageCache('hurt', LOADED_IMAGES.character.hurt);
     this.img = this.imageCache['idle_0'];
-    // this.x = 0;
-    this.x = 4800;
+    this.x = 0;
+    // this.x = 6176;
     this.y = 270;
     this.width = 200;
     this.height = 239;

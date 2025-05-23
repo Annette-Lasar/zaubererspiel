@@ -181,18 +181,18 @@ function startGame() {
 }
 
 function gameLoop() {
+  if (!world.running) return;
+
   if (world.loopID) cancelAnimationFrame(world.loopID);
   world.update();
   world.draw();
   world.loopID = requestAnimationFrame(gameLoop);
 }
 
-function tryAgain() {
-  clearAllIntervals();
-  setTimeout(() => world.endGame.resumeGame(), 100);
-}
+function restartGame() {
+  world = null;
+  cancelAnimationFrame(loopId);
+  loopId = null;
 
-function clearAllIntervals() {
-  IntervallIDs.forEach(clearInterval);
-  IntervallIDs = [];
+  startGame();
 }

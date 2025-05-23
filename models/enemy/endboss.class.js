@@ -15,9 +15,9 @@ class Endboss extends MovableObject {
     this.x = 5500;
     this.speed = 2;
 
-    this.energy = 100;
+    this.energy = 0; // auf 100 setzen!!
     this.healthBar;
-
+    this.isDeadAlready = true;
     this.patrolMin = 5000;
     this.patrolMax = 5800;
     this.nextTurnPoint = this.getRandomTurnPoint('left');

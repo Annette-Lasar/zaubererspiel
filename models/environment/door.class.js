@@ -1,5 +1,5 @@
 class Door extends MovableObject {
-  offset = { top: 50, bottom: 100, left: 120, right: 120 };
+  offset = { top: 50, bottom: 100, left: 200, right: 200 };
   constructor() {
     super();
     this.addToImageCache('door', LOADED_IMAGES.game_items.door);

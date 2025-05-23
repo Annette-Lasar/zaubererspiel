@@ -171,7 +171,7 @@ function generateDoorLvl() {
  * @returns {Array} An array of traps.
  */
 function generateTrapsLvl() {
-  return [new Trap(800), new Trap(1600), new Trap(2600), new Trap(3400)];
+  return [new Trap(800), new Trap(2100), new Trap(3500), new Trap(4900)];
 }
 
 // new Trap(4800),
