@@ -139,6 +139,7 @@ function preloadAssets() {
 
 function showInfoBox() {
   const startContainer = document.getElementById('start_container');
+
   startContainer.innerHTML += generateStartContentHTML();
 }
 
@@ -157,6 +158,10 @@ function showContent(content) {
     innerStartContainer.classList.add('d-none');
     instructionsBox.classList.remove('d-none');
     instructionsBox.innerHTML = generateImprintHtml();
+  } else if (content === 'winnerScreen') {
+    innerStartContainer.classList.add('d-none');
+    instructionsBox.classList.remove('d-none');
+    instructionsBox.innerHTML = generateWinnerScreen();
   }
 }
 
@@ -181,9 +186,11 @@ function startGame() {
 }
 
 function gameLoop() {
-  if (!world.running) return;
+  if (world.running === false) {
+    cancelAnimationFrame(world.loopID);
+    return;
+  }
 
-  if (world.loopID) cancelAnimationFrame(world.loopID);
   world.update();
   world.draw();
   world.loopID = requestAnimationFrame(gameLoop);
@@ -195,4 +202,27 @@ function restartGame() {
   loopId = null;
 
   startGame();
+}
+
+function showEndScreen(screenType) {
+  canvas = document.getElementById('canvas');
+  canvas.classList.add('d-none');
+  const startScreen = document.getElementById('startScreen');
+  const endScreen = document.getElementById('end_screen');
+  startScreen.classList.add('d-none');
+  endScreen.classList.remove('d-none');
+  if (screenType === 'winnerScreen') {
+    endScreen.innerHTML = generateWinnerScreenHTML();
+  } else if (screenType === 'loserScreen') {
+    endScreen.innerHTML = generateLoserScreenHTML();
+  } else {
+    console.error('Unknown screenType');
+  }
+}
+
+function showStartScreen() {
+  const startScreen = document.getElementById('startScreen');
+  const endScreen = document.getElementById('end_screen');
+  startScreen.classList.remove('d-none');
+  endScreen.classList.add('d-none');
 }

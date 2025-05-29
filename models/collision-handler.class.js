@@ -52,7 +52,6 @@ class CollisionHandler {
     });
   }
 
-
   checkCollisionWithKnight() {
     const toRemove = [];
 
@@ -154,19 +153,17 @@ class CollisionHandler {
   }
 
   checkCollisionCharacterDoor() {
-    if (
-      this.character.isColliding(this.door) &&
-      this.character.keyCollected &&
-      !this.victoryTriggered
-    ) {
-      this.victoryTriggered = true;
-      this.triggerVictory();
-    }
-  }
+    if (!this.character.isColliding(this.door)) return;
 
-  triggerVictory() {
-    this.character.playSound(LOADED_SOUNDS.game.you_win);
-    console.log('Spiel gewonnen');
-    this.running = false;
+    if (this.character.keyCollected && !this.world.victoryTriggered) {
+      this.world.victoryTriggered = true;
+      this.door.open(() => {
+        this.world.triggerVictory();
+        this.world.character.stopWalkingSound();
+      });
+    } else if (!this.character.keyCollected) {
+      this.door.showMessage('You need to collect the key first!');
+      console.log('You need to collect the key first!');
+    }
   }
 }

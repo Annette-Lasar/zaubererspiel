@@ -10,7 +10,6 @@ class Character extends MovableObject {
   energy = 100;
   bottleReady = true;
   poisonCollected = 0;
-  // poisonCollected = 1000;
   keyCollected = false;
   // keyCollected = true;
   hasPassedDoor = false;
@@ -95,6 +94,9 @@ class Character extends MovableObject {
             this.stopWalkingSound();
           }
         );
+        setTimeout(() => {
+          this.world.triggerFailure();
+        }, 3000);
       } else {
         this.animate(LOADED_IMAGES.character.die);
       }

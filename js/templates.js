@@ -154,3 +154,35 @@ function generateImprintHtml() {
             </div>
           `;
 }
+
+function generateWinnerScreenHTML() {
+  return /* html */ `
+  <div class="winner-screen-wrapper">
+    <div class="inner-winner-screen-wrapper">
+      <figure>
+        <img src="../assets/img/game_ui/victory/knight_win.png" alt="">
+      </figure>
+      <p>Congratulations. You won!</p>
+      <div class="retry-button-wrapper">
+        <button onclick="showStartScreen()">Play again</button>
+      </div>
+    </div>
+  </div>
+  `;
+}
+
+function generateLoserScreenHTML() {
+  return /* html */ `
+  <div class="loser-screen-wrapper">
+    <div class="inner-loser-screen-wrapper">
+      <figure>
+        <img src="../assets/img/game_ui/failure/game_lost.png" alt="">
+      </figure>
+      <p>Sorry. You lost!</p>
+      <div class="retry-button-wrapper">
+        <button onclick="showStartScreen()">Play again</button>
+      </div>
+    </div>
+  </div>
+  `;
+}

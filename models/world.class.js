@@ -134,6 +134,22 @@ class World {
     this.collisionHandler.checkCollisionCharacterDoor();
   }
 
+  triggerVictory() {
+    const winSound = LOADED_SOUNDS.game.you_win;
+    winSound.volume = 0.5;
+    this.character.playSound(winSound);
+    this.running = false;
+    showEndScreen('winnerScreen');
+  }
+
+  triggerFailure() {
+    const loseSound = LOADED_SOUNDS.game.you_lose;
+    loseSound.volume = 0.5;
+    this.character.playSound(loseSound);
+    this.running = false;
+    showEndScreen('loserScreen');
+  }
+
   draw() {
     this.clearCanvas();
     this.ctx.save();
@@ -154,6 +170,7 @@ class World {
     this.addObjectsToMap(this.traps);
     if (this.key) this.addToMap(this.key);
     this.addToMap(this.door);
+    if (this.door.isMessageActive) this.door.drawMessage(this.ctx);
     if (this.endboss) this.addToMap(this.endboss);
     if (this.character) this.addToMap(this.character);
     if (
