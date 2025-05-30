@@ -172,14 +172,16 @@ svg.banner {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
-    'upper-left middle right'
-    'lower-left middle right';
+    'upper-left middle upper-right'
+    'upper-left middle upper-right'
+    'lower-left middle upper-right'
+    'lower-left middle lower-right';
   color: #ffffff;
   overflow: auto;
 }
 
 h2 {
-  grid-area: right;
+  grid-area: upper-right;
   justify-self: center;
   align-self: center;
   font-size: clamp(1.4rem, 4vw, 3rem);
@@ -190,6 +192,7 @@ h2 {
   position: absolute;
   bottom: 0.5em;
   left: 50%;
+  transform: translateX(-48px);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   background-color: transparent;
@@ -234,6 +237,29 @@ h2 {
   font-size: clamp(1rem, 1.8vw, 1.5rem);
   border: 4px ridge #e0a635;
   box-shadow: inset 0 0 10px #ffd78a, 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.sound-button-wrapper {
+  width: 100%;
+  height: fit-content;
+  margin: 0 12px 0 0;
+  grid-area: lower-right;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.music-button-wrapper,
+.sound-button-wrapper {
+  text-align: center;
+  cursor: pointer;
+}
+
+.music-button,
+.noise-button {
+  height: 44px;
 }
 
 .instructions-box {

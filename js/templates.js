@@ -76,7 +76,7 @@ function generateStartContentHTML() {
                 <div id="h2_headline" class="headline">
                   <button class="arrow-back" onclick="backToMainScreen()">
                     <img
-                      src="./assets/img/app_icons/arrow-left.png"
+                      src="./assets/img/game_ui/arrow-left.png"
                       alt="Back to main screen"
                       class="d-none"
                     />
@@ -91,6 +91,16 @@ function generateStartContentHTML() {
                 <button class="how-to-play-button" onclick="showContent('howToPlay')">How to play</button>
                 <button class="imprint-button" onclick="showContent('imprint')">Imprint</button>
                 <h2>Myrddin&apos;s <br> Quest</h2>
+                <div id="sound_button_wrapper" class="sound-button-wrapper">
+                  <figure onclick="toggleSound('music')" class="music-button-wrapper">
+                    <img id="music_button" class="music-button" src="./assets/img/game_ui/sounds/music_on.png" alt="">
+                    <figcaption id="music_caption" class="music-caption">Music on</figcaption>
+                  </figure>
+                  <figure onclick="toggleSound('noise')" class="noise-button-wrapper">
+                    <img id="noise_button" class="noise-button" src="./assets/img/game_ui/sounds/noise_on.png" alt="">
+                    <figcaption id="noise_caption" class="noise-caption">Noise on</figcaption>
+                  </figure>
+                  </div>
               </div>
             </div>
             <div id="instructions_box" class="instructions-box d-none"></div>
@@ -101,7 +111,7 @@ function generateAboutGameHtml() {
   return /*html*/ `
               <div class="game-rules-wrapper">
                 <button class="arrow-back" onclick="backToMainScreen()" >
-                  <img src="./assets/img/app_icons/arrow-left.png" alt="Back to main screen">
+                  <img src="./assets/img/game_ui/arrow-left.png" alt="Back to main screen">
                 </button>
                 <div class="keyboard-instructions">
                     <table>
@@ -136,7 +146,7 @@ function generateImprintHtml() {
   return /*html*/ `
             <div class="imprint-wrapper">
               <button class="arrow-back" onclick="backToMainScreen()" >
-                <img src="./assets/img/app_icons/arrow-left.png" alt="Back to main screen">
+                <img src="./assets/img/game_ui/arrow-left.png" alt="Back to main screen">
               </button>
               <div id="imprintInformation" class="imprint-information">
                   <address>
@@ -178,7 +188,7 @@ function generateLoserScreenHTML() {
       <figure>
         <img src="../assets/img/game_ui/failure/game_lost.png" alt="">
       </figure>
-      <p>Sorry. You lost!</p>
+      <p>Sorry, you lost!</p>
       <div class="retry-button-wrapper">
         <button onclick="showStartScreen()">Play again</button>
       </div>

@@ -14,7 +14,6 @@ class Endboss extends MovableObject {
     this.y = 100;
     this.x = 5500;
     this.speed = 2;
-
     this.energy = 100; 
     this.healthBar;
     this.isDeadAlready = false;
