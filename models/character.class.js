@@ -11,7 +11,6 @@ class Character extends MovableObject {
   bottleReady = true;
   poisonCollected = 0;
   keyCollected = false;
-  // keyCollected = true;
   hasPassedDoor = false;
   offset = { top: 40, bottom: 10, left: 5, right: 30 };
 
@@ -42,6 +41,8 @@ class Character extends MovableObject {
     if (this.isDeadAlready) return;
     this.handleMovements();
     this.handleAnimations();
+    this.healthBar.setPercentage(this.energy);
+    this.poisonBar.setPercentage(this.poisonCollected);
   }
 
   setKeyIcon(keyIcon) {

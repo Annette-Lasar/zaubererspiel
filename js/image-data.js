@@ -12,10 +12,7 @@ const IMAGE_PATHS = {
     skull: './assets/img/game_items/skull_000.png',
     crystal: './assets/img/game_items/diamond.png',
     key: './assets/img/game_items/key.png',
-    hearts: [
-      './assets/img/game_ui/heart_empty.png',
-      './assets/img/game_ui/heart_full.png',
-    ],
+    heart: './assets/img/game_ui/heart_full.png',
     poison: [
       './assets/img/poison/1.png',
       './assets/img/poison/2.png',
