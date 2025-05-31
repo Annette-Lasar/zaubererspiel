@@ -40,8 +40,6 @@ class World {
     this.keyboard = keyboard;
     this.running = true;
     this.victoryTriggered = false;
-    // this.keyboard.linkButtonsToPressEvents();
-    // NICHT löschen! später wieder einkommentieren, wenn die IDs vorhanden sind.
 
     this.initializeGameObjects();
   }
@@ -179,22 +177,6 @@ class World {
     ) {
       this.addObjectsToMap(this.throwableObjects);
     }
-
-    // this.character.drawFrame(this.ctx);
-    // this.door.drawFrame(this.ctx);
-    // if (this.key) this.key.drawFrame(this.ctx);
-    // if (Array.isArray(this.knights) && this.knights.length > 0) {
-    //   this.knights.forEach((knight) => knight.drawFrame(this.ctx));
-    // }
-    // if (Array.isArray(this.poisons) && this.poisons.length > 0) {
-    //   this.poisons.forEach((poison) => poison.drawFrame(this.ctx));
-    // }
-    // if (Array.isArray(this.hearts) && this.hearts.length > 0) {
-    //   this.hearts.forEach((heart) => heart.drawFrame(this.ctx));
-    // }
-    // this.traps.forEach((trap) => trap.drawFrame(this.ctx));
-    // if (this.endboss) this.endboss.drawInnerFrame(this.ctx);
-    // if (this.endboss) this.endboss.drawOuterFrame(this.ctx);
 
     this.ctx.restore();
 

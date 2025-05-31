@@ -1,10 +1,4 @@
 /**
- * Initializes and returns the first level.
- * @returns {Level} The initialized level.
- */
-// const level1 = initLevel();
-
-/**
  * Initializes the level by generating enemies, environments, backgrounds, poison objects, and traps.
  * @returns {Level} The initialized level.
  */
@@ -173,8 +167,6 @@ function generateDoorLvl() {
 function generateTrapsLvl() {
   return [new Trap(800), new Trap(2100), new Trap(3500), new Trap(4900)];
 }
-
-// new Trap(4800),
 
 function generateEndboss() {
   return new Endboss();

@@ -14,17 +14,4 @@ class Heart extends MovableObject {
     this.collectingSound = LOADED_SOUNDS.heart.collected;
     this.collectingSound.volume = 0.5;
   }
-
-  drawFrame() {
-    ctx.globalAlpha = 1;
-    ctx.strokeStyle = 'green';
-    ctx.lineWidth = 2;
-
-    const offsetX = this.x + this.offset.left;
-    const offsetY = this.y + this.offset.top;
-    const offsetWidth = this.width - this.offset.left - this.offset.right;
-    const offsetHeight = this.height - this.offset.top - this.offset.bottom;
-
-    ctx.strokeRect(offsetX, offsetY, offsetWidth, offsetHeight);
-  }
 }

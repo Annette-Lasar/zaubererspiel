@@ -127,8 +127,6 @@ function preloadAssets() {
     .then(([loadedImages, _, loadedSounds]) => {
       window.LOADED_IMAGES = loadedImages;
       window.LOADED_SOUNDS = loadedSounds;
-      console.log('Geladene Bilder:', LOADED_IMAGES);
-      console.log('Geladene Sounds:', LOADED_SOUNDS);
       document.getElementById('loadingMessage').classList.add('d-none');
       showInfoBox();
     })
@@ -189,7 +187,7 @@ function startGame() {
   const level1 = createLevel1();
   world = new World(canvas, keyboard, level1);
   keyboard.setupControls();
-  // keyboard.linkButtonsToPressEvents();
+  keyboard.linkButtonsToPressEvents();
   gameStarted = true;
   if (music) {
     LOADED_SOUNDS.game.background.play();

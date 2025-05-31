@@ -23,7 +23,7 @@ function generateStartContentHTML() {
                     .banner-text {
                       font-family: 'MedievalSharp', 'Lucida Handwriting',
                         cursive;
-                      fill: #5b3c11; /* bleibt dunkel für Kontrast */
+                      fill: #5b3c11; 
                       font-size: 36px;
                       text-anchor: middle;
                       dominant-baseline: middle;
@@ -125,6 +125,7 @@ function generateAboutGameHtml() {
                 <button class="arrow-back" onclick="backToMainScreen()" >
                   <img src="./assets/img/game_ui/arrow-left.png" alt="Back to main screen">
                 </button>
+                <div class="game-rules">
                 <div class="keyboard-instructions">
                     <table>
                       <thead>
@@ -133,22 +134,29 @@ function generateAboutGameHtml() {
                           </tr>
                       </thead>
                         <tr>
-                            <td>Left</td>
+                            <td class="first-column">Arrow left</td>
                             <td>Move left</td>
                         </tr>
                         <tr>
-                            <td>Right</td>
+                            <td class="first-column">Arrow right</td>
                             <td>Move right</td>
                         </tr>
                         <tr>
-                            <td>Space</td>
+                            <td class="first-column">Arrow up</td>
                             <td>Jump</td>
                         </tr>
                         <tr>
-                            <td>D</td>
+                            <td class="first-column">D</td>
                             <td>Throw</td>
                         </tr>
                     </table>
+                </div>
+                <div class="additional-rules">
+                    <p>Colliding with knights will reduce your character\'s energy. The same goes for traps if you hit them from the side, and for collisions with the troll.</p>
+                    <p>You can kill knights by jumping on them, but falling into a trap from above kills you instantly.</p>
+                    <p>Collect hearts to restore your energy, and poison bottles to refill your weapon stock.</p>
+                    <p>Four bottle hits will kill the troll. Don't forget the key, or you won\'t be able to open the door and win.</p>
+                </div>
                 </div>
               </div>
             `;

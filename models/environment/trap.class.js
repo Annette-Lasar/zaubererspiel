@@ -20,17 +20,4 @@ class Trap extends MovableObject {
       this.playSound(LOADED_SOUNDS.trap.snap);
     }
   }
-
-  drawFrame() {
-    ctx.globalAlpha = 1;
-    ctx.strokeStyle = 'purple';
-    ctx.lineWidth = 2;
-
-    const offsetX = this.x + this.offset.left;
-    const offsetY = this.y + this.offset.top;
-    const offsetWidth = this.width - this.offset.left - this.offset.right;
-    const offsetHeight = this.height - this.offset.top - this.offset.bottom;
-
-    ctx.strokeRect(offsetX, offsetY, offsetWidth, offsetHeight);
-  }
 }

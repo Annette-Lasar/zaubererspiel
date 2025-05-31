@@ -14,7 +14,6 @@ class Door extends MovableObject {
     this.isMessageActive = false;
 
     this.img = this.imageCache['door_0'];
-    this.drawFrame();
   }
 
   open(afterAnimation) {
@@ -42,18 +41,5 @@ class Door extends MovableObject {
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
     ctx.fillText(this.message, this.x + this.width / 2 + 50, this.y - 10);
-  }
-
-  drawFrame() {
-    ctx.globalAlpha = 1;
-    ctx.strokeStyle = 'red';
-    ctx.lineWidth = 2;
-
-    const offsetX = this.x + this.offset.left;
-    const offsetY = this.y + this.offset.top;
-    const offsetWidth = this.width - this.offset.left - this.offset.right;
-    const offsetHeight = this.height - this.offset.top - this.offset.bottom;
-
-    ctx.strokeRect(offsetX, offsetY, offsetWidth, offsetHeight);
   }
 }

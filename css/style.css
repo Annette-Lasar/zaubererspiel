@@ -16,12 +16,12 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: #437da7;
+  background: #ffd78a;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #355a77;
+  background: #e0a635;
   border-radius: 10px;
 }
 
@@ -76,7 +76,6 @@ h1.headline {
   width: 100%;
   display: flex;
   align-items: center;
-  border: green 2px solid;
 }
 
 .headline.active > img {
@@ -121,7 +120,6 @@ h2 {
   max-width: 800px;
   max-height: 500px;
   position: relative;
-  border: orange 4px solid;
 }
 
 .canvas {
@@ -306,6 +304,24 @@ h2 {
   gap: 8px;
 }
 
+.game-rules-wrapper {
+  height: 80vh;
+  overflow-y: auto;
+}
+
+thead {
+  text-align: left;
+  font-weight: 700;
+}
+
+.first-column {
+  width: 65%;
+}
+
+.additional-rules {
+  font-size: 0.9rem;
+}
+
 .arrow-back {
   height: fit-content;
 }
@@ -324,7 +340,6 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: blue 2px solid;
 }
 
 .canvas-sound-button-wrapper img {
