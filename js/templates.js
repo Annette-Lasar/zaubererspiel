@@ -165,6 +165,23 @@ function generateImprintHtml() {
           `;
 }
 
+function generateGameButtonsHTML() {
+  return /* html */ `
+    <div class="canvas-sound-button-wrapper">
+      <img id="music_button_on_canvas" onclick="toggleSound('music')" src="${
+        music
+          ? './assets/img/game_ui/sounds/music_on.png'
+          : './assets/img/game_ui/sounds/music_off.png'
+      }" alt="">
+      <img id="noise_button_on_canvas" onclick="toggleSound('noise')" src="${
+        noises
+          ? './assets/img/game_ui/sounds/noise_on.png'
+          : './assets/img/game_ui/sounds/noise_off.png'
+      }" alt="">
+    </div>
+  `;
+}
+
 function generateWinnerScreenHTML() {
   return /* html */ `
   <div class="winner-screen-wrapper">
